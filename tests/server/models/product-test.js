@@ -31,14 +31,36 @@ describe('Product model', function () {
 
     var product;
 
+    // beforeEach(function(done){
+    //     console.log("inside beforeEach: ", Product);
+    //     return Product.create({name: 'Test Product', description:'Description'})
+    //     .then(function(_product_){
+    //       product = _product_;
+    //       console.log("product: ", product);
+    //       done();
+    //     });
+    // });
+
     beforeEach(function(done){
-        Product.create({name: 'Test Product', description:'Description'})
+        return Product.create({name: 'Test Product', price: 10, description:'Description'})
         .then(function(_product_){
           product = _product_;
-          done();
+           done();
         });
 
     });
+
+
+    // beforeEach(function() {
+    //   return Product.create({
+    //     name: 'Test Product',
+    //     description:'Description'
+    //   })
+    //   .then(function(_product_){
+    //     product = _product_; 
+    //     console.log("product: ", product);
+    //   })
+    // });
 
     it('has a name', function(){
       expect(product.name).to.equal('Test Product');
