@@ -22,11 +22,13 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = mongoose.model('User');
+var Product = mongoose.model('Product');
 
 var wipeCollections = function () {
     var removeUsers = User.remove({});
+    var removeProducts = Product.remove({});
     return Promise.all([
-        removeUsers
+        removeUsers, removeProducts
     ]);
 };
 
@@ -47,12 +49,53 @@ var seedUsers = function () {
 
 };
 
+var seedProducts = function() {
+
+    var products = [
+        {
+            name: 'Classic Waffles',
+            price: 5.00,
+            category: "Waffles",
+            description: 'Stack of classic waffles'
+        },
+        {
+            name: 'Chocolate Chip Waffles',
+            price: 7.00,
+            category: "Waffles",
+            description: 'Stack of chocolate chip waffles'           
+        },
+        {
+            name: 'Chicken and Waffles',
+            price: 12.00,
+            category: "Waffles",
+            description: 'Waffles with fried chicken'           
+        },
+        {
+            name: 'Round Waffle Maker',
+            price: 30.00,
+            category: "Equipment",
+            description: 'Round Waffle Maker'           
+        },    
+        {
+            name: 'Square Waffle Maker',
+            price: 30.00,
+            category: "Equipment",
+            description: 'Square Waffle Maker'           
+        }
+    ];
+    return Product.create(products);
+};
+
+
 connectToDb
     .then(function () {
         return wipeCollections();
     })
     .then(function () {
         return seedUsers();
+    })
+    .then(function() {
+        return seedProducts();
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));
