@@ -14,9 +14,26 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function($scope, cart){
+app.controller('CartController', function($scope, cart, OrderFactory){
 
   $scope.cart = cart;
 
+  $scope.increaseQty = function(product){
+    console.log(cart._id, product);
+    return OrderFactory.addOne(cart._id, product)
+    .then(function(res){
+      $scope.cart = res;
+    });
+  };
+
+  $scope.decreaseQty = function(product){
+    console.log(cart._id, product);
+
+    return OrderFactory.removeOne(cart._id, product)
+    .then(function(res){
+      $scope.cart = res;
+    });
+
+  };
 
 });

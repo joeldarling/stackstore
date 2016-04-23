@@ -40,12 +40,12 @@ router.post('/', function(req, res, next){
 });
 
 router.put('/:id', function(req, res, next){
+
 	Order.findOne({_id: req.params.id})
 	.then(function(order){
 		//get index of product in products array
 		var index = order.products.map(function(product) { return product.product.toString(); }).indexOf(req.body.productid);
-		console.log('index', index, req.body.productid);
-		console.log(order.products);
+
 		if (req.body.action === 'add') {
 			//if product exists then update quantity, otherwise add to products array
 			if (index === -1) {
