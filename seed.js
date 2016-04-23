@@ -73,6 +73,12 @@ var seedProducts = function() {
             description: 'Waffles with fried chicken'           
         },
         {
+            name: 'OJ',
+            price: 3.00,
+            category: "Drinks",
+            description: 'Orange Juice'           
+        },
+        {
             name: 'Round Waffle Maker',
             price: 30.00,
             category: "Equipment",
