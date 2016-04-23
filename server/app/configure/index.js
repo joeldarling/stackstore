@@ -15,6 +15,7 @@ module.exports = function (app) {
     require('./parsing-middleware')(app);
 
     app.use('/api/products', require('../routes/products'));
+    app.use('/api/orders', require('../routes/orders'));
 
     // Logging middleware, set as application
     // variable inside of server/app/configure/app-variables.js
