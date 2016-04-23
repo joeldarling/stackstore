@@ -48,13 +48,19 @@
         ]);
     });
 
-    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
+    app.service('AuthService', function ($http, Session, OrderFactory, $rootScope, AUTH_EVENTS, $q) {
 
         function onSuccessfulLogin(response) {
             var data = response.data;
-            Session.create(data.id, data.user);
-            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-            return data.user;
+            OrderFactory.createCart(data.user._id)
+            .then(function(cart){
+
+              Session.create(data.id, data.user, cart);
+              $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+              return data.user;
+
+            });
+
         }
 
         // Uses the session factory to see if an
@@ -117,15 +123,18 @@
 
         this.id = null;
         this.user = null;
+        this.cart = null;
 
-        this.create = function (sessionId, user) {
+        this.create = function (sessionId, user, cart) {
             this.id = sessionId;
             this.user = user;
+            this.cart = cart;
         };
 
         this.destroy = function () {
             this.id = null;
             this.user = null;
+            this.cart = null;
         };
 
     });

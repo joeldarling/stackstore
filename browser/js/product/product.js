@@ -28,10 +28,13 @@ app.directive('product', function(){
     scope: {
       product: '='
     },
-    controller: function($scope){
+    controller: function($scope, Session, OrderFactory){
       $scope.addToCart = function(product){
-        console.log('added item to cart', product._id);
+        OrderFactory.addOne(Session.cart._id, product)
+        .then(function(result){
 
+          console.log(result);
+        });
       };
     }
   };

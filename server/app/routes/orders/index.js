@@ -21,7 +21,6 @@ router.get('/:id', function(req, res, next){
 router.post('/', function(req, res, next){
 
 	Order.findOne({user: req.body.user, status: 'Cart'})
-	.populate('products')
 	.then(function(cart){
 		if(!cart){
 			//no cart exists for this user - create one
@@ -37,7 +36,7 @@ router.post('/', function(req, res, next){
 			//cart already existed, return cart
 			res.send(cart);
 		}
-	})
+	});
 });
 
 router.put('/:id', function(req, res, next){

@@ -64,38 +64,38 @@ var seedProducts = function() {
             name: 'Chocolate Chip Waffles',
             price: 7.00,
             category: "Waffles",
-            description: 'Stack of chocolate chip waffles'           
+            description: 'Stack of chocolate chip waffles'
         },
         {
             name: 'Chicken and Waffles',
             price: 12.00,
             category: "Waffles",
-            description: 'Waffles with fried chicken'           
+            description: 'Waffles with fried chicken'
         },
         {
             name: 'OJ',
             price: 3.00,
             category: "Drinks",
-            description: 'Orange Juice'           
+            description: 'Orange Juice'
         },
         {
             name: 'Round Waffle Maker',
             price: 30.00,
             category: "Equipment",
-            description: 'Round Waffle Maker'           
-        },    
+            description: 'Round Waffle Maker'
+        },
         {
             name: 'Square Waffle Maker',
             price: 30.00,
             category: "Equipment",
-            description: 'Square Waffle Maker'           
+            description: 'Square Waffle Maker'
         }
     ];
     return Product.create(products);
 };
 
 var seedOrders = function(){
-    var order; 
+    var order;
     return User.findOne({email: 'obama@gmail.com'}).exec()
     .then(function(user){
         return Product.findOne({name: 'Classic Waffles'}).exec()
@@ -106,7 +106,6 @@ var seedOrders = function(){
                     status: 'Cart',
                     products: [{
                         product: product._id,
-                        quantity: 2
                     }]
                 },
                 {
@@ -116,9 +115,9 @@ var seedOrders = function(){
                         product: product._id,
                         quantity: 5
                     }]
-                }               
+                }
             ]
-            return Order.create(orders);            
+            return Order.create(orders);
         })
 
     })

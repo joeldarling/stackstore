@@ -31,14 +31,14 @@ app.factory('OrderFactory', function($http){
 	}
 
 	OrderFactory.addOne = function(id, product){
-		return $http.put('/api/orders' + id, {productid: product, action: "add"})
+		return $http.put('/api/orders/' + id, {productid: product, action: "add"})
 		.then(function(response){
 			return response.data;
 		});
 	}
 
 	OrderFactory.removeOne = function(id, product){
-		return $http.put('/api/orders' + id, {productid: product, action: "remove"})
+		return $http.put('/api/orders/' + id, {productid: product, action: "remove"})
 		.then(function(response){
 			return response.data;
 		});
