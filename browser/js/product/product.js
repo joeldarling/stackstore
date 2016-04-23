@@ -33,7 +33,6 @@ app.directive('product', function(){
         OrderFactory.addOne(Session.cart._id, product)
         .then(function(result){
 
-          console.log(result);
         });
       };
     }

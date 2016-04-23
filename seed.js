@@ -106,6 +106,7 @@ var seedOrders = function(){
                     status: 'Cart',
                     products: [{
                         product: product._id,
+                        quantity: 5
                     }]
                 },
                 {
