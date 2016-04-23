@@ -1,13 +1,13 @@
-app.directive('cart', function(){
+app.config(function ($stateProvider) {
 
-  return {
-    restrict:'E',
-    templateUrl:'/js/cart/cart.html',
-    scope:{
-      num:'='
-    }
-
-  };
-
+    // Register our *cart* state.
+    $stateProvider.state('cart', {
+        url: '/cart',
+        controller: 'CartController',
+        templateUrl: 'js/cart/cart.html',
+        resolve:{
+          
+        }
+    });
 
 });
