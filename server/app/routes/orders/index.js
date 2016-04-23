@@ -19,18 +19,20 @@ router.get('/:id', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
-	Order.findOne({user: req.body.user, status: 'Cart'}).
-	then(function(cart){
+
+	Order.findOne({user: req.body.user, status: 'Cart'})
+	.populate('products')
+	.then(function(cart){
 		if(!cart){
 			//no cart exists for this user - create one
-			var newCart = {
-                user: user,
+			var newCart = new Order({
+                user: req.body.user,
                 status: 'Cart'
-            };
+            });
            	newCart.save()
            	.then(function(response){
            		res.send(response);
-           	})
+           	});
 		} else {
 			//cart already existed, return cart
 			res.send(cart);
@@ -54,7 +56,7 @@ router.put('/:id', function(req, res, next){
 			if (order.products[index].quantity > 0) {
 				order.products[index].quantity--;
 			}
-		}	
+		}
 		return order.save();
 	})
 	.then(function(response){
