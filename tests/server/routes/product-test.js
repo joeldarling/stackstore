@@ -43,6 +43,10 @@ describe('Product Route', function () {
     it('can retrieve an product by ID', function(){
       return request.get('/api/products/' + product._id)
       .then(function(res){
+<<<<<<< HEAD
+=======
+
+>>>>>>> jd-product-route-tests
         expect(res.body.length).to.equal(1);
         expect(res.body.name).to.equal('Product');
         expect(res.body.price).to.equal(5);
