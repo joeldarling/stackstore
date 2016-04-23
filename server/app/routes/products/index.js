@@ -13,7 +13,7 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/:id', function(req, res, next){
-	Product.find({_id: req.params.id})
+	Product.findOne({_id: req.params.id})
 	.then(function(product){
 		res.json(product);
 	})
