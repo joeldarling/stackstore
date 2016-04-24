@@ -35,7 +35,7 @@ app.directive('navbar', function ($rootScope, AuthService, Session, AUTH_EVENTS,
 
             setUser();
 
-            scope.numInCart = 0;
+            scope.numInCart =0;
 
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);

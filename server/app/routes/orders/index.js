@@ -48,7 +48,10 @@ router.put('/:id', function(req, res, next){
 		//get index of product in products array
 		var index = order.products.map(function(product) { return product.product.toString(); }).indexOf(req.body.productid);
 
-		if (req.body.action === 'add') {
+		if(req.body.action === 'delete' && index!==-1){
+			order.products.splice(index, 1);
+
+		}	else if (req.body.action === 'add') {
 			//if product exists then update quantity, otherwise add to products array
 			if (index === -1) {
 				order.products.push({product: req.body.productid, quantity: 1});

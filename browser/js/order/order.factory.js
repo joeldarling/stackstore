@@ -23,6 +23,8 @@ app.factory('OrderFactory', function($http){
 		});
 	};
 
+
+
 	OrderFactory.createCart = function(user){
 		return $http.post('/api/orders/', {user: user})
 		.then(function(response){
@@ -35,6 +37,14 @@ app.factory('OrderFactory', function($http){
 		.then(function(response){
 			return response.data;
 		});
+	};
+
+	OrderFactory.deleteItem = function(id, product){
+		return $http.put('/api/orders/' + id, {productid: product, action: "delete"})
+		.then(function(response){
+			return response.data;
+		});
+
 	};
 
 	OrderFactory.removeOne = function(id, product){
