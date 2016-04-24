@@ -23,7 +23,6 @@ app.controller('CartController', function($scope, cart, OrderFactory, Session){
     return OrderFactory.addOne(cart._id, product._id)
     .then(function(res){
       $scope.refreshCart();
-      $scope.total = getTotal($scope.cart.products);
     });
   };
 
@@ -31,7 +30,6 @@ app.controller('CartController', function($scope, cart, OrderFactory, Session){
     return OrderFactory.removeOne(cart._id, product._id)
     .then(function(res){
       $scope.refreshCart();
-      $scope.total = getTotal($scope.cart.products);
     });
 
   };
@@ -40,7 +38,6 @@ app.controller('CartController', function($scope, cart, OrderFactory, Session){
     return OrderFactory.deleteItem(cart._id, product._id)
     .then(function(res){
       $scope.refreshCart();
-      $scope.total = getTotal($scope.cart.products);
     });
   };
 
@@ -49,6 +46,8 @@ app.controller('CartController', function($scope, cart, OrderFactory, Session){
     .then(function(result){
       $scope.cart = result;
       Session.cart = result;
+      $scope.total = getTotal($scope.cart.products);
+
     });
 
   };
@@ -58,5 +57,10 @@ app.controller('CartController', function($scope, cart, OrderFactory, Session){
 
 function getTotal(products){
 
-  // TODO
+ return products.reduce(function(prev, curr){
+
+    prev += curr.product.price * curr.quantity;
+    return prev;
+  }, 0);
+
 }
