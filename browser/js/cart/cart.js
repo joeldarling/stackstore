@@ -20,32 +20,34 @@ app.controller('CartController', function($scope, cart, OrderFactory){
   $scope.total = getTotal(cart.products);
 
   $scope.increaseQty = function(product){
-    return OrderFactory.addOne(cart._id, product)
+    return OrderFactory.addOne(cart._id, product._id)
     .then(function(res){
-      $scope.cart = res;
+      $scope.refreshCart();
       $scope.total = getTotal($scope.cart.products);
     });
   };
 
   $scope.decreaseQty = function(product){
-    return OrderFactory.removeOne(cart._id, product)
+    return OrderFactory.removeOne(cart._id, product._id)
     .then(function(res){
-      $scope.cart = res;
+      $scope.refreshCart();
       $scope.total = getTotal($scope.cart.products);
+    });
+
+  };
+
+  $scope.refreshCart = function (){
+    OrderFactory.fetchById($scope.cart._id)
+    .then(function(result){
+      $scope.cart = result;
     });
 
   };
 
 });
 
+
 function getTotal(products){
 
-  var total;
-
-  products.forEach(function(item){
-    console.log(item)
-    total += (+item.price * +item.quantity);
-  });
-
-  return total;
+  // TODO
 }

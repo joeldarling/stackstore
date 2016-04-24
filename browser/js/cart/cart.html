@@ -2,8 +2,8 @@
 
   <h4> Cart </h4>
 
-  <div class="well" ng-repeat="product in cart.products">
-    <h5>{{ product.product }}
+  <div class="well" ng-repeat="product in cart.products" ng-cloak>
+    <h5>{{ product.product.name }}
     Qty: {{ product.quantity }}
       <button ng-click="increaseQty(product.product)" type="button" class="btn btn-default">
         <span class="glyphicon glyphicon-chevron-up"></span>

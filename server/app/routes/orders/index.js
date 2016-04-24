@@ -13,6 +13,7 @@ router.get('/', function(req, res, next){
 
 router.get('/:id', function(req, res, next){
 	Order.findOne({_id: req.params.id})
+	.populate('products.product')
 	.then(function(order){
 		res.json(order);
 	}, next);
@@ -21,6 +22,7 @@ router.get('/:id', function(req, res, next){
 router.post('/', function(req, res, next){
 
 	Order.findOne({user: req.body.user, status: 'Cart'})
+	.populate('products.product')
 	.then(function(cart){
 		if(!cart){
 			//no cart exists for this user - create one
