@@ -21,28 +21,38 @@ app.factory('OrderFactory', function($http){
 		.then(function(response){
 			return response.data;
 		});
-	}
+	};
+
+
 
 	OrderFactory.createCart = function(user){
 		return $http.post('/api/orders/', {user: user})
 		.then(function(response){
 			return response.data;
 		});
-	}
+	};
 
 	OrderFactory.addOne = function(id, product){
-		return $http.put('/api/orders' + id, {productid: product, action: "add"})
+		return $http.put('/api/orders/' + id, {productid: product, action: "add"})
 		.then(function(response){
 			return response.data;
 		});
-	}
+	};
+
+	OrderFactory.deleteItem = function(id, product){
+		return $http.put('/api/orders/' + id, {productid: product, action: "delete"})
+		.then(function(response){
+			return response.data;
+		});
+
+	};
 
 	OrderFactory.removeOne = function(id, product){
-		return $http.put('/api/orders' + id, {productid: product, action: "remove"})
+		return $http.put('/api/orders/' + id, {productid: product, action: "remove"})
 		.then(function(response){
 			return response.data;
 		});
-	}
+	};
 
 	return OrderFactory;
 

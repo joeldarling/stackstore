@@ -13,37 +13,45 @@ router.get('/', function(req, res, next){
 
 router.get('/:id', function(req, res, next){
 	Order.findOne({_id: req.params.id})
+	.populate('products.product')
 	.then(function(order){
 		res.json(order);
 	}, next);
 });
 
 router.post('/', function(req, res, next){
-	Order.findOne({user: req.body.user, status: 'Cart'}).
-	then(function(cart){
+
+	Order.findOne({user: req.body.user, status: 'Cart'})
+	.populate('products.product')
+	.then(function(cart){
 		if(!cart){
 			//no cart exists for this user - create one
-			var newCart = {
-                user: user,
+			var newCart = new Order({
+                user: req.body.user,
                 status: 'Cart'
-            };
+            });
            	newCart.save()
            	.then(function(response){
            		res.send(response);
-           	})
+           	});
 		} else {
 			//cart already existed, return cart
 			res.send(cart);
 		}
-	})
+	});
 });
 
 router.put('/:id', function(req, res, next){
+
 	Order.findOne({_id: req.params.id})
 	.then(function(order){
 		//get index of product in products array
-		var index = order.products.map(function(product) { return product._id; }).indexOf(req.params.productid);
-		if (req.body.action === 'add') {
+		var index = order.products.map(function(product) { return product.product.toString(); }).indexOf(req.body.productid);
+
+		if(req.body.action === 'delete' && index!==-1){
+			order.products.splice(index, 1);
+
+		}	else if (req.body.action === 'add') {
 			//if product exists then update quantity, otherwise add to products array
 			if (index === -1) {
 				order.products.push({product: req.body.productid, quantity: 1});
@@ -54,7 +62,7 @@ router.put('/:id', function(req, res, next){
 			if (order.products[index].quantity > 0) {
 				order.products[index].quantity--;
 			}
-		}	
+		}
 		return order.save();
 	})
 	.then(function(response){

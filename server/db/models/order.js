@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    user: [{ 
-        type: mongoose.Schema.Types.ObjectId, ref: 'User' 
+    user: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'User'
     }],
     status: {
         type: String
@@ -16,6 +16,5 @@ var schema = new mongoose.Schema({
     }
 });
 
-schema.virtual
 
 mongoose.model('Order', schema);
