@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function($scope, cart, OrderFactory, Session){
+app.controller('CartController', function($rootScope, $scope, cart, OrderFactory, Session){
 
   $scope.cart = cart;
   $scope.total = getTotal(cart.products);
@@ -47,6 +47,7 @@ app.controller('CartController', function($scope, cart, OrderFactory, Session){
       $scope.cart = result;
       Session.cart = result;
       $scope.total = getTotal($scope.cart.products);
+      $rootScope.$broadcast('update-cart');
 
     });
 

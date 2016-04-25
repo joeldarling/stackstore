@@ -28,10 +28,12 @@ app.directive('product', function(){
     scope: {
       product: '='
     },
-    controller: function($scope, Session, OrderFactory){
+    controller: function($scope, $rootScope, Session, OrderFactory){
       $scope.addToCart = function(product){
         OrderFactory.addOne(Session.cart._id, product)
         .then(function(result){
+          console.log('poop');
+          $rootScope.$broadcast('update-cart');
 
         });
       };
