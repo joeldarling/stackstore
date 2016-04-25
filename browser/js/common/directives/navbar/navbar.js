@@ -34,7 +34,6 @@ app.directive('navbar', function ($rootScope, AuthService, Session, AUTH_EVENTS,
             };
 
             var updateCart = function(cartQty){
-              console.log(Session.cart.products.length);
               scope.numInCart = Session.cart.products.length;
             };
 

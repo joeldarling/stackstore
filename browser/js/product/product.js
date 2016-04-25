@@ -32,7 +32,6 @@ app.directive('product', function(){
       $scope.addToCart = function(product){
         OrderFactory.addOne(Session.cart._id, product)
         .then(function(result){
-          console.log('poop');
           $rootScope.$broadcast('update-cart');
 
         });
