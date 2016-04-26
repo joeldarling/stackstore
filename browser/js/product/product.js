@@ -30,7 +30,7 @@ app.directive('product', function(){
     },
     controller: function($scope, $rootScope, Session, OrderFactory, CartFactory){
       $scope.addToCart = function(product){
-        OrderFactory.addOne(Session.cart._id, product)
+        OrderFactory.addOne(CartFactory.getCartId(), product)
         .then(function(result){
           CartFactory.refreshCart();
         });
