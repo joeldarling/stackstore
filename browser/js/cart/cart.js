@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function($scope, cart, OrderFactory, Session){
+app.controller('CartController', function($rootScope, $scope, cart, OrderFactory, CartFactory, Session){
 
   $scope.cart = cart;
   $scope.total = getTotal(cart.products);
@@ -42,12 +42,11 @@ app.controller('CartController', function($scope, cart, OrderFactory, Session){
   };
 
   $scope.refreshCart = function (){
-    return OrderFactory.fetchById($scope.cart._id)
+
+    CartFactory.refreshCart()
     .then(function(result){
       $scope.cart = result;
-      Session.cart = result;
-      $scope.total = getTotal($scope.cart.products);
-
+      $scope.total = CartFactory.getTotal();
     });
 
   };

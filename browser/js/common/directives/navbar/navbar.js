@@ -33,13 +33,17 @@ app.directive('navbar', function ($rootScope, AuthService, Session, AUTH_EVENTS,
                 scope.user = null;
             };
 
-            setUser();
+            var updateCart = function(cartQty, qty){
+              scope.numInCart = qty;
+            };
 
-            scope.numInCart =0;
+            setUser();
 
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
+            $rootScope.$on('update-cart', updateCart);
+
 
         }
 
