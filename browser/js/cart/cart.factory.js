@@ -9,6 +9,9 @@ app.factory('CartFactory', function($rootScope, OrderFactory){
         _cartId = cartId;
       this.refreshCart();
     },
+    getCartId: function(){
+      return _cartId;
+    },
     refreshCart: function (){
       if(_cartId)
         return OrderFactory.fetchById(_cartId)
