@@ -1,22 +1,31 @@
-app.factory('CartFactory', function(OrderFactory){
+app.factory('CartFactory', function($rootScope, OrderFactory){
 
   var _cart, _cartId;
 
   return {
 
     createCart: function (cartId){
-      _cartId = cartId;
-      refreshCart();
-
+      if(!_cartId)
+        _cartId = cartId;
+      this.refreshCart();
     },
     refreshCart: function (){
-      return _cart;
+      if(_cartId)
+        return OrderFactory.fetchById(_cartId)
+        .then(function(res){
+          _cart = res;
+
+          $rootScope.$broadcast('update-cart', _cart.products.length);
+          return _cart;
+        });
     },
     resetCart: function(){
       _cart = null;
+      _cartId = null;
     },
     getCartQty: function(){
-      return _cart.products.length;
+      if(_cart)
+        return _cart.products.length;
     },
     getTotal: function(){
 

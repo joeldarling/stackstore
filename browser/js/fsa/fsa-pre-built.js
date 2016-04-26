@@ -48,7 +48,7 @@
         ]);
     });
 
-    app.service('AuthService', function ($http, Session, OrderFactory, $rootScope, AUTH_EVENTS, $q) {
+    app.service('AuthService', function ($http, Session, CartFactory, OrderFactory, $rootScope, AUTH_EVENTS, $q) {
 
         function onSuccessfulLogin(response) {
             var data = response.data;
@@ -56,6 +56,8 @@
             .then(function(cart){
 
               Session.create(data.id, data.user, cart);
+
+              CartFactory.createCart(cart._id);
               $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
               return data.user;
 

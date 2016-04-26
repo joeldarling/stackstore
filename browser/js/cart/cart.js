@@ -42,14 +42,11 @@ app.controller('CartController', function($rootScope, $scope, cart, OrderFactory
   };
 
   $scope.refreshCart = function (){
-    return OrderFactory.fetchById($scope.cart._id)
+
+    CartFactory.refreshCart()
     .then(function(result){
-
-      CartFactory.updateCart(result);
-      $scope.cart = CartFactory.getCart();
+      $scope.cart = result;
       $scope.total = CartFactory.getTotal();
-      $rootScope.$broadcast('update-cart');
-
     });
 
   };

@@ -33,8 +33,8 @@ app.directive('navbar', function ($rootScope, AuthService, Session, AUTH_EVENTS,
                 scope.user = null;
             };
 
-            var updateCart = function(cartQty){
-              scope.numInCart = Session.cart.products.length;
+            var updateCart = function(cartQty, qty){
+              scope.numInCart = qty;
             };
 
             setUser();
