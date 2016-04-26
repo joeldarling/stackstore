@@ -32,8 +32,8 @@ app.factory('OrderFactory', function($http){
 		});
 	};
 
-	OrderFactory.addOne = function(id, product){
-		return $http.put('/api/orders/' + id, {productid: product, action: "add"})
+	OrderFactory.addOne = function(id, product, price){
+		return $http.put('/api/orders/' + id, {productid: product, price: price, action: "add"})
 		.then(function(response){
 			return response.data;
 		});

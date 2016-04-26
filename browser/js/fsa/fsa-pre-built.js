@@ -48,7 +48,7 @@
         ]);
     });
 
-    app.service('AuthService', function ($http, Session, OrderFactory, $rootScope, AUTH_EVENTS, $q) {
+    app.service('AuthService', function ($http, Session, CartFactory, OrderFactory, $rootScope, AUTH_EVENTS, $q) {
 
         function onSuccessfulLogin(response) {
             var data = response.data;
@@ -56,6 +56,8 @@
             .then(function(cart){
 
               Session.create(data.id, data.user, cart);
+
+              CartFactory.createCart(cart._id);
               $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
               return data.user;
 
@@ -123,18 +125,18 @@
 
         this.id = null;
         this.user = null;
-        this.cart = null;
+        //this.cart = null;
 
         this.create = function (sessionId, user, cart) {
             this.id = sessionId;
             this.user = user;
-            this.cart = cart;
+            //this.cart = cart;
         };
 
         this.destroy = function () {
             this.id = null;
             this.user = null;
-            this.cart = null;
+            //this.cart = null;
         };
 
     });

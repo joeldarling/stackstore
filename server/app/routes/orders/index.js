@@ -54,11 +54,15 @@ router.put('/:id', function(req, res, next){
 		}	else if (req.body.action === 'add') {
 			//if product exists then update quantity, otherwise add to products array
 			if (index === -1) {
-				order.products.push({product: req.body.productid, quantity: 1});
+				order.products.push({
+					product: req.body.productid, 
+					quantity: 1,
+					price: req.body.price
+				});
 			} else {
 				order.products[index].quantity++;
 			}
-		} else {
+		} else { //remove one
 			if (order.products[index].quantity > 0) {
 				order.products[index].quantity--;
 			}

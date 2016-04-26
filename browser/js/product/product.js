@@ -28,10 +28,12 @@ app.directive('product', function(){
     scope: {
       product: '='
     },
-    controller: function($scope, Session, OrderFactory){
+    controller: function($scope, $rootScope, Session, OrderFactory, CartFactory, ngToast){
       $scope.addToCart = function(product){
-        OrderFactory.addOne(Session.cart._id, product)
+        OrderFactory.addOne(CartFactory.getCartId(), product)
         .then(function(result){
+          CartFactory.refreshCart();
+          ngToast.create('Added to cart!');
 
         });
       };

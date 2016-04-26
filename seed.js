@@ -44,7 +44,11 @@ var seedUsers = function () {
         {
             email: 'obama@gmail.com',
             password: 'potus'
-        }
+        },
+        {
+            email: 'ontima@gmail.com',
+            password: 'password'
+        }      
     ];
 
     return User.create(users);
@@ -57,36 +61,42 @@ var seedProducts = function() {
         {
             name: 'Classic Waffles',
             price: 5.00,
+            inventoryQty: 100,
             category: "Waffles",
             description: 'Stack of classic waffles'
         },
         {
             name: 'Chocolate Chip Waffles',
             price: 7.00,
+            inventoryQty: 50,
             category: "Waffles",
             description: 'Stack of chocolate chip waffles'
         },
         {
             name: 'Chicken and Waffles',
             price: 12.00,
+            inventoryQty: 50,
             category: "Waffles",
             description: 'Waffles with fried chicken'
         },
         {
             name: 'OJ',
             price: 3.00,
+            inventoryQty: 100,
             category: "Drinks",
             description: 'Orange Juice'
         },
         {
             name: 'Round Waffle Maker',
             price: 30.00,
+            inventoryQty: 25,
             category: "Equipment",
             description: 'Round Waffle Maker'
         },
         {
             name: 'Square Waffle Maker',
-            price: 30.00,
+            price: 35.00,
+            inventoryQty: 20,
             category: "Equipment",
             description: 'Square Waffle Maker'
         }
