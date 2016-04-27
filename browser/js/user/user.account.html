@@ -8,7 +8,8 @@
     <div class="panel panel-default">
         <div class="list-group list-group-item" ng-repeat="order in user.orders" ng-cloak>
           <h4>Order {{ order._id }}</h4>
-          <p> Status: {{ order.status }} (Total ${{ order.total }} / each)</p>
+          <p> Status: {{ order.status }} (Total ${{ order.total }} )</p>
+          <br/>
           {{order.products}}
         </div>
     </div>

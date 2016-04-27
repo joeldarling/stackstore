@@ -2,6 +2,9 @@
 var router = require('express').Router();
 module.exports = router;
 var mongoose = require('mongoose');
+
+var Promise = require('bluebird');
+
 var User = mongoose.model('User');
 var Order = mongoose.model('Order');
 
@@ -13,22 +16,43 @@ router.get('/', function(req, res, next){
 	.then(null, next);
 });
 
+// router.get('/:id', function(req, res, next){
+//
+// 	var userToReturn = {};
+//
+// 	User.findOne({_id: req.params.id}, {email: 1, address: 1})
+// 	.populate('address')
+// 	.then(function(user){
+// 		userToReturn = user;
+// 		return Order.find({user: req.params.id});
+// 	})
+// 	.populate('products')
+// 	.then(function(orders){
+//
+// 		res.json({user: userToReturn, orders: orders});
+// 	})
+// 	.then(null, next);
+// });
 router.get('/:id', function(req, res, next){
 
 	var userToReturn = {};
 
-	User.findOne({_id: req.params.id}, {email: 1, address: 1})
-	.populate('address')
-	.then(function(user){
-		userToReturn = user;
-		return Order.find({user: req.params.id});
-	})
-	.then(function(orders){
+	Promise.all([
 
-		res.json({user: userToReturn, orders: orders});
-	})
-	.then(null, next);
+		User.findOne({_id: req.params.id}, {email: 1, address: 1})
+		.populate('address')
+		.then(function(user){
+			return user;
+		}),
+		Order.find({user: req.params.id})
+		.populate('products.product')
+		.then(function(products){
+			return products;
+		})
+	])
+	.then(function(result){
+		console.log(result[1].products)
+		res.json({user: result[0], orders: result[1]});
+	});
+
 });
-
-
-module.exports = router;
