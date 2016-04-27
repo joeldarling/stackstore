@@ -6,7 +6,9 @@ var Product = mongoose.model('Product');
 
 router.get('/', function(req, res, next){
 	Product.find({})
+	.populate('category')
 	.then(function(products){
+		console.log(products[0].category[0].name)
 		res.json(products);
 	})
 	.then(null, next);
