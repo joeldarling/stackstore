@@ -9,10 +9,10 @@ var schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    category: {
-    	type: String,
+    category: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'Category',
         required: true
-    },
+    }],
     price: {
         type: Number,
         required: true
@@ -23,9 +23,6 @@ var schema = new mongoose.Schema({
     },
     photo: {
     	type: Buffer
-    },
-    reviews: {
-    	type: [String]
     }
 });
 
