@@ -25,8 +25,14 @@ var schema = new mongoose.Schema({
     },
     orderNumber:{
       type: String,
-      default: Math.random().toString(36).toUpperCase().slice(10)
     }
+});
+
+schema.pre('validate' , function(next){
+
+  this.orderNumber = Math.random().toString(36).toUpperCase().slice(10);
+  next();
+
 });
 
 
