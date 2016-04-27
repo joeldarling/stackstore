@@ -25,36 +25,67 @@ var User = mongoose.model('User');
 var Product = mongoose.model('Product');
 var Order = mongoose.model('Order');
 var Category = mongoose.model('Category');
+var Address = mongoose.model('Address');
 
 var wipeCollections = function () {
     var removeUsers = User.remove({});
     var removeProducts = Product.remove({});
     var removeOrders = Order.remove({});
     var removeCategories = Category.remove({});
+    var removeAddresses = Address.remove({});
     return Promise.all([
-        removeUsers, removeProducts, removeOrders, removeCategories
+        removeUsers, removeProducts, removeOrders, removeCategories, removeAddresses
     ]);
+};
+
+var seedAddresses = function() {
+    var addresses = [
+        {
+            address: '5 Hanover Square',
+            city: 'New York',
+            state: 'NY',
+            zip: '10004'
+        },
+        {
+            address: '25 Broadway',
+            city: 'New York',
+            state: 'NY',
+            zip: '10004'           
+        }
+    ];
+
+    return Address.create(addresses);
 };
 
 var seedUsers = function () {
 
-    var users = [
-        {
-            email: 'testing@fsa.com',
-            password: 'password'
-        },
-        {
-            email: 'obama@gmail.com',
-            password: 'potus'
-        },
-        {
-            email: 'ontima@gmail.com',
-            password: 'password'
-        }      
-    ];
+    var users;
 
-    return User.create(users);
+    return Address.findOne({address: '5 Hanover Square'}).exec()
+    .then(function(hanover){
+        return Address.findOne({address: '25 Broadway'}).exec()
+        .then(function(broadway){
+            users = [
+                {
+                    email: 'testing@fsa.com',
+                    password: 'password',
+                    address: hanover
+                },
+                {
+                    email: 'obama@gmail.com',
+                    password: 'potus',
+                    address: hanover
+                },
+                {
+                    email: 'ontima@gmail.com',
+                    password: 'password',
+                    address: broadway
+                }      
+            ];
 
+            return User.create(users);
+        })
+    })
 };
 
 var seedCategories = function() {
@@ -83,8 +114,6 @@ var seedProducts = function() {
         .then(function(drinks){
             return Category.findOne({name: 'Equipment'}).exec()
             .then(function(equipments){
-                console.log('still have waffles: ', waffles);
-
                 products = [
                     {
                         name: 'Classic Waffles',
@@ -169,6 +198,9 @@ var seedOrders = function(){
 connectToDb
     .then(function () {
         return wipeCollections();
+    })
+    .then(function(){
+        return seedAddresses();
     })
     .then(function () {
         return seedUsers();
