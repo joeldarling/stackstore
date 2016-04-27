@@ -16,12 +16,9 @@ var schema = new mongoose.Schema({
     orderDate: {
         type: Date
     },
-    shipping: {
-        type: String
-    },
-    email: {
-        type: String
-    }
+    address: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'Address'
+    }]
 });
 
 
