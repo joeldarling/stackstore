@@ -8,15 +8,50 @@ app.config(function ($stateProvider) {
         resolve:{
           products: function(ProductFactory){
             return ProductFactory.fetchAll();
+          },
+          categories: function(CategoryFactory){
+            return CategoryFactory.fetchAll();
           }
         }
     });
 
 });
 
-app.controller('ProductController', function($scope, products){
+app.config(function ($stateProvider) {
+
+    // Register our *category* state.
+    $stateProvider.state('category', {
+        url: '/:categoryName/',
+        templateUrl:'js/product/products.html',
+        controller: function($scope, products, categories){
+
+          $scope.products = products;
+          $scope.categories = categories;
+
+        },
+        resolve:{
+
+          products: function($stateParams, CategoryFactory){
+
+            return CategoryFactory.fetchProductsInCategory($stateParams.categoryName);
+
+          },
+          categories: function(CategoryFactory){
+            return CategoryFactory.fetchAll();
+          }
+
+        }
+
+    });
+
+});
+
+
+
+app.controller('ProductController', function($scope, products, categories){
 
   $scope.products = products;
+  $scope.categories = categories;
 
 });
 

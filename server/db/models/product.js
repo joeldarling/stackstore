@@ -26,6 +26,16 @@ var schema = new mongoose.Schema({
     }
 });
 
+schema.statics.getByCategory = function(_category){
+
+  return this.find({'category': _category})
+  .populate('category')
+  .then(function(result){
+
+    return result;
+  });
+
+};
 
 
 mongoose.model('Product', schema);
