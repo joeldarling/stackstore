@@ -55,7 +55,7 @@
             OrderFactory.createCart(data.user._id)
             .then(function(cart){
 
-              Session.create(data.id, data.user, cart);
+              Session.create(data.id, data.user);
 
               CartFactory.createCart(cart._id);
               $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
@@ -125,18 +125,15 @@
 
         this.id = null;
         this.user = null;
-        //this.cart = null;
 
         this.create = function (sessionId, user, cart) {
             this.id = sessionId;
             this.user = user;
-            //this.cart = cart;
         };
 
         this.destroy = function () {
             this.id = null;
             this.user = null;
-            //this.cart = null;
         };
 
     });

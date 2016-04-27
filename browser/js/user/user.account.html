@@ -1,0 +1,17 @@
+
+<div class="container">
+<h3> User Account Info </h3>
+
+
+<button ng-click="showHistory = !showHistory" class="btn btn-warning"> Show Order History </button>
+<div ng-show="showHistory">
+    <div class="panel panel-default">
+        <div class="list-group list-group-item" ng-repeat="order in user.orders" ng-cloak>
+          <h4>Order {{ order._id }}</h4>
+          <p> Status: {{ order.status }} (Total ${{ order.total }} / each)</p>
+          {{order.products}}
+        </div>
+    </div>
+</div>
+
+</div>
