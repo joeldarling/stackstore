@@ -27,7 +27,7 @@ router.get('/:id', function(req, res, next){
 		.then(function(user){
 			return user;
 		}),
-		Order.find({user: req.params.id})
+		Order.find({user: req.params.id, status: {$ne: 'Cart'}})
 		.populate('products.product')
 		.then(function(products){
 			return products;

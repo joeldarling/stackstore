@@ -21,7 +21,11 @@ var schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'Address'
     }],
     total: {
-      type: Number 
+      type: Number
+    },
+    orderNumber:{
+      type: String,
+      default: Math.random().toString(36).toUpperCase().slice(10)
     }
 });
 

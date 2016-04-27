@@ -17,7 +17,6 @@
         {{ address.city }},
         {{ address.state }}
         {{ address.zip }}
-
       </div>
   </div>
 
@@ -26,10 +25,11 @@
   <!-- TODO: Turn into Directive -->
 
   <button ng-click="showHistory = !showHistory" class="btn btn-warning"> Show Order History </button>
+
   <div ng-show="showHistory">
       <div class="panel panel-default">
           <div class="list-group list-group-item" ng-repeat="order in orders" ng-cloak>
-            <h4>Order {{ order._id }}</h4>
+            <h4>Order {{ order.orderNumber }}</h4>
             <p> Status: {{ order.status }} (Total ${{ order.total }} )</p>
             <h5>Order Summary</h5>
             <ul>
