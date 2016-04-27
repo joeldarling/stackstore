@@ -17,6 +17,8 @@ module.exports = function (app) {
     app.use('/api/products', require('../routes/products'));
     app.use('/api/orders', require('../routes/orders'));
     app.use('/api/users', require('../routes/users'));
+    app.use('/api/categories', require('../routes/categories'));
+
 
     // Logging middleware, set as application
     // variable inside of server/app/configure/app-variables.js

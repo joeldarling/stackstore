@@ -6,3 +6,4 @@ require('./user');
 require('./category');
 require('./product');
 require('./order');
+require('./category')
