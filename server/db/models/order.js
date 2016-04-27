@@ -5,7 +5,8 @@ var schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     }],
     status: {
-        type: String
+        type: String, 
+        enum: ['Cart', 'Created', 'Processing', 'Cancelled', 'Completed']
     },
     products: [{
         product: {type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
