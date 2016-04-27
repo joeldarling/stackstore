@@ -1,0 +1,45 @@
+
+<div class="container">
+<h3> User Account Info </h3>
+<div class="col-sm-6">
+  <div class="input-group">
+    <span class="input-group-addon">Email Address</span>
+    <input type="text" class="form-control" value="{{ user.email }}">
+  </div>
+  <br/>
+  <h4> Saved Shipping Addresses </h4>
+
+  <div class="panel panel-default">
+    <span class="input-group-addon">Shipping Address</span>
+
+      <div class="list-group list-group-item" ng-repeat="address in user.address" ng-cloak>
+        {{ address.address }}
+        {{ address.city }},
+        {{ address.state }}
+        {{ address.zip }}
+      </div>
+  </div>
+
+
+  <br/>
+  <!-- TODO: Turn into Directive -->
+
+  <button ng-click="showHistory = !showHistory" class="btn btn-warning"> Show Order History </button>
+
+  <div ng-show="showHistory">
+      <div class="panel panel-default">
+          <div class="list-group list-group-item" ng-repeat="order in orders" ng-cloak>
+            <h4>Order {{ order.orderNumber }}</h4>
+            <p> Status: {{ order.status }} (Total ${{ order.total }} )</p>
+            <h5>Order Summary</h5>
+            <ul>
+              <li ng-repeat="product in order.products"> {{ product.product.name }} - Qty: {{ product.quantity }}
+
+              </li>
+
+          </div>
+      </div>
+  </div>
+
+  </div>
+</div>

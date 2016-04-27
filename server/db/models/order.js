@@ -5,7 +5,7 @@ var schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     }],
     status: {
-        type: String, 
+        type: String,
         enum: ['Cart', 'Created', 'Processing', 'Cancelled', 'Completed']
     },
     products: [{
@@ -14,11 +14,25 @@ var schema = new mongoose.Schema({
         price: {type: Number}
     }],
     orderDate: {
-        type: Date
+        type: Date,
+        default: Date
     },
     address: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'Address'
-    }]
+    }],
+    total: {
+      type: Number
+    },
+    orderNumber:{
+      type: String,
+    }
+});
+
+schema.pre('validate' , function(next){
+
+  this.orderNumber = Math.random().toString(36).toUpperCase().slice(10);
+  next();
+
 });
 
 

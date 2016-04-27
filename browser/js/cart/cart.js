@@ -56,7 +56,7 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
   };
 
   $scope.checkout = function(){
-    OrderFactory.checkout(cart._id)
+    OrderFactory.checkout(cart._id, CartFactory.getTotal())
     .then(function(result){
         return OrderFactory.createCart(Session.user._id);
     })

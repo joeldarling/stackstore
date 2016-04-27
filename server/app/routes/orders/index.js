@@ -105,6 +105,7 @@ router.put('/checkout/:id', function(req, res, next){
 		});
 		//update the order's status
 		order.status = 'Created';
+		order.total = req.body.total;
 
 		//update the order's address
 		if (req.body.address) {
