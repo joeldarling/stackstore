@@ -49,7 +49,6 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
 
     CartFactory.refreshCart()
     .then(function(result){
-      //console.log('new', result)
       $scope.cart = result;
       $scope.total = CartFactory.getTotal();
     });
