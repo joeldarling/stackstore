@@ -26,6 +26,7 @@ var Product = mongoose.model('Product');
 var Order = mongoose.model('Order');
 var Category = mongoose.model('Category');
 var Address = mongoose.model('Address');
+var Review = mongoose.model('Review');
 
 var wipeCollections = function () {
     var removeUsers = User.remove({});
@@ -33,8 +34,9 @@ var wipeCollections = function () {
     var removeOrders = Order.remove({});
     var removeCategories = Category.remove({});
     var removeAddresses = Address.remove({});
+    var removeReviews = Review.remove({});
     return Promise.all([
-        removeUsers, removeProducts, removeOrders, removeCategories, removeAddresses
+        removeUsers, removeProducts, removeOrders, removeCategories, removeAddresses, removeReviews
     ]);
 };
 
@@ -192,8 +194,27 @@ var seedOrders = function(){
         })
 
     })
-}
+};
 
+
+var seedReviews = function(){
+    var review;
+    return User.findOne({email: 'obama@gmail.com'}).exec()
+    .then(function(user){
+        return Product.findOne({name: 'Classic Waffles'}).exec()
+        .then(function(product){
+            review = [
+                {
+                    user: user._id,
+                    product: product._id,
+                    rating: 5,
+                    description: 'The best waffles ever!'
+                }
+            ]
+            return Review.create(review);
+        })
+    })
+};
 
 connectToDb
     .then(function () {
@@ -213,6 +234,9 @@ connectToDb
     })
     .then(function(){
         return seedOrders();
+    })
+    .then(function(){
+        return seedReviews();
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));
