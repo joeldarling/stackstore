@@ -1,8 +1,7 @@
 
   <ul class="nav nav-pills">
     <li ng-repeat="category in categories">
-
-        <a ui-sref="category({categoryName: category._id, _id: category._id})">{{ category.name }}</a>
+        <a ui-sref="category({categoryName: category._id})">{{ category.name }}</a>
     </li>
   </ul>
 

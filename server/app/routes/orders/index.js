@@ -3,6 +3,8 @@ var router = require('express').Router();
 module.exports = router;
 var mongoose = require('mongoose');
 var Order = mongoose.model('Order');
+var Product = mongoose.model('Product');
+var Address = mongoose.model('Address');
 
 router.get('/', function(req, res, next){
 	Order.find({})
@@ -55,12 +57,13 @@ router.put('/:id', function(req, res, next){
 			//if product exists then update quantity, otherwise add to products array
 			if (index === -1) {
 				order.products.push({
-					product: req.body.productid, 
+					product: req.body.productid,
 					quantity: 1,
 					price: req.body.price
 				});
 			} else {
 				order.products[index].quantity++;
+				order.products[index].price = req.body.price;
 			}
 		} else { //remove one
 			if (order.products[index].quantity > 0) {
@@ -77,6 +80,49 @@ router.put('/:id', function(req, res, next){
 
 router.delete('/:id', function(req, res, next){
 	Order.findOneAndRemove({_id: req.params.id})
+	.then(function(response){
+		res.send(response);
+	}, next);
+});
+
+
+router.put('/checkout/:id', function(req, res, next){
+	Order.findOne({_id: req.params.id})
+	.then(function(order){
+		//loop through products in the order to update inventory
+		order.products.forEach(function(item){
+			Product.findOne({_id: item.product})
+			.then(function(product){
+				if (product.inventoryQty > item.quantity) {
+					product.inventoryQty = product.inventoryQty - item.quantity;
+					return product.save();
+				} else {
+					//there wasn't enough inventory - what should we do here?
+					//if there are some left - update the order's quantity to what's available?
+					//if nothing in the order is available, update status to 'Cancelled'?
+				}
+			})
+		});
+		//update the order's status
+		order.status = 'Created';
+		order.total = req.body.total;
+
+		//update the order's address
+		if (req.body.address) {
+			var newAddress = new Address({
+				address: req.body.address,
+				city: req.body.city,
+				state: req.body.state,
+				zip: req.body.zip
+			});
+			newAddress.save()
+			.then(function(address){
+				order.address = address;
+			});
+		}
+
+		return order.save();
+	})
 	.then(function(response){
 		res.send(response);
 	}, next);

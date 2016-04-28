@@ -14,20 +14,24 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function($rootScope, $scope, cart, OrderFactory, CartFactory, Session){
+app.controller('CartController', function($rootScope, $state, $scope, cart, OrderFactory, CartFactory, Session, ngToast){
 
   $scope.cart = cart;
   $scope.total = getTotal(cart.products);
 
+  console.log(ngToast);
+
+
   $scope.increaseQty = function(product){
-    return OrderFactory.addOne(cart._id, product._id)
+    console.log('order', $scope.cart._id);
+    return OrderFactory.addOne($scope.cart._id, product._id)
     .then(function(res){
       $scope.refreshCart();
     });
   };
 
   $scope.decreaseQty = function(product){
-    return OrderFactory.removeOne(cart._id, product._id)
+    return OrderFactory.removeOne($scope.cart._id, product._id)
     .then(function(res){
       $scope.refreshCart();
     });
@@ -35,7 +39,7 @@ app.controller('CartController', function($rootScope, $scope, cart, OrderFactory
   };
 
   $scope.deleteItem = function(product){
-    return OrderFactory.deleteItem(cart._id, product._id)
+    return OrderFactory.deleteItem($scope.cart._id, product._id)
     .then(function(res){
       $scope.refreshCart();
     });
@@ -49,6 +53,21 @@ app.controller('CartController', function($rootScope, $scope, cart, OrderFactory
       $scope.total = CartFactory.getTotal();
     });
 
+  };
+
+  $scope.checkout = function(){
+    OrderFactory.checkout(cart._id, CartFactory.getTotal())
+    .then(function(result){
+        return OrderFactory.createCart(Session.user._id);
+    })
+    .then(function(newCart){
+      ngToast.create('Order completed!');
+
+      CartFactory.resetCart();
+      CartFactory.createCart(newCart._id);
+      $scope.refreshCart();
+      $state.go('home');
+    });
   };
 
 });

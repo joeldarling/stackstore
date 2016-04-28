@@ -9,10 +9,10 @@ var schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    category: {
-    	type: String,
+    category: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'Category',
         required: true
-    },
+    }],
     price: {
         type: Number,
         required: true
@@ -23,12 +23,19 @@ var schema = new mongoose.Schema({
     },
     photo: {
     	type: Buffer
-    },
-    reviews: {
-    	type: [String]
     }
 });
 
+schema.statics.getByCategory = function(_category){
+
+  return this.find({'category': _category})
+  .populate('category')
+  .then(function(result){
+
+    return result;
+  });
+
+};
 
 
 mongoose.model('Product', schema);

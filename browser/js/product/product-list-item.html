@@ -1,7 +1,7 @@
 <div class="col-sm-4 well">
   <h5>{{ product.name }} </h5>
   <p>Price: {{ product.price }} </p>
-  <p>Category: {{ product.category }} </p>
+  <p>Category: <span ng-repeat="cat in product.category">{{ cat.name }} </span></p>
   <p>Description: {{ product.description }}</p>
   <br/>
   <button ng-click="addToCart(product._id)" class="btn btn-primary"> Add to Cart </button>

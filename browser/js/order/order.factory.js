@@ -54,6 +54,19 @@ app.factory('OrderFactory', function($http){
 		});
 	};
 
+	OrderFactory.checkout = function(id, total){
+		return $http.put('/api/orders/checkout/' + id, {
+			// address: address,
+			// city: city,
+			// state: state,
+			// zip: zip,
+			total: total
+		})
+		.then(function(response){
+			return response.data;
+		});
+	};
+
 	return OrderFactory;
 
 });
