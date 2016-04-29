@@ -52,7 +52,7 @@ var seedAddresses = function() {
             address: '25 Broadway',
             city: 'New York',
             state: 'NY',
-            zip: '10004'           
+            zip: '10004'
         }
     ];
 
@@ -82,7 +82,7 @@ var seedUsers = function () {
                     email: 'ontima@gmail.com',
                     password: 'password',
                     address: broadway
-                }      
+                }
             ];
 
             return User.create(users);

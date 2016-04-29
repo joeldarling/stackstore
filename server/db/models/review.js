@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    user: [{
+    user: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
-    }],
+    },
     product: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'Product'
     }],

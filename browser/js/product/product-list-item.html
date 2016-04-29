@@ -1,5 +1,5 @@
 <div class="col-sm-4 well">
-  <h5>{{ product.name }} </h5>
+  <a ui-sref="productDetail({productid: product._id})">{{ product.name }} </a>
   <p>Price: {{ product.price }} </p>
   <p>Category: <span ng-repeat="cat in product.category">{{ cat.name }} </span></p>
   <p>Description: {{ product.description }}</p>
