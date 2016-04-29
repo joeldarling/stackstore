@@ -1,16 +1,36 @@
 app.config(function ($stateProvider) {
 
-    // Register our *about* state.
     $stateProvider.state('product', {
         url: '/product',
         controller: 'ProductController',
-        templateUrl: 'js/product/product.html',
+        templateUrl: 'js/product/products.html',
         resolve:{
           products: function(ProductFactory){
             return ProductFactory.fetchAll();
           },
           categories: function(CategoryFactory){
             return CategoryFactory.fetchAll();
+          }
+        }
+    });
+
+});
+
+app.config(function ($stateProvider) {
+
+    $stateProvider.state('productDetail', {
+        url: '/product/:productid',
+        controller: 'ProductDetailController',
+        templateUrl: 'js/product/product.html',
+        resolve:{
+          product: function($stateParams, ProductFactory){
+            return ProductFactory.fetchById($stateParams.productid);
+          },
+          categories: function(CategoryFactory){
+            return CategoryFactory.fetchAll();
+          },
+          reviews: function($stateParams, ReviewFactory){
+            return ReviewFactory.fetchByProduct($stateParams.productid);
           }
         }
     });
@@ -52,6 +72,24 @@ app.controller('ProductController', function($scope, products, categories){
 
   $scope.products = products;
   $scope.categories = categories;
+
+});
+
+app.controller('ProductDetailController', function($scope, CartFactory, OrderFactory, ngToast, product, categories, reviews){
+
+  $scope.product = product;
+  $scope.categories = categories;
+  $scope.showReviews;
+  $scope.reviews = reviews;
+
+  $scope.addToCart = function(product){
+    OrderFactory.addOne(CartFactory.getCartId(), product)
+    .then(function(result){
+      CartFactory.refreshCart();
+      ngToast.create('Added to cart!');
+
+    });
+  };
 
 });
 

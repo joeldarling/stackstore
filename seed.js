@@ -26,6 +26,7 @@ var Product = mongoose.model('Product');
 var Order = mongoose.model('Order');
 var Category = mongoose.model('Category');
 var Address = mongoose.model('Address');
+var Review = mongoose.model('Review');
 
 var wipeCollections = function () {
     var removeUsers = User.remove({});
@@ -33,8 +34,9 @@ var wipeCollections = function () {
     var removeOrders = Order.remove({});
     var removeCategories = Category.remove({});
     var removeAddresses = Address.remove({});
+    var removeReviews = Review.remove({});
     return Promise.all([
-        removeUsers, removeProducts, removeOrders, removeCategories, removeAddresses
+        removeUsers, removeProducts, removeOrders, removeCategories, removeAddresses, removeReviews
     ]);
 };
 
@@ -50,7 +52,7 @@ var seedAddresses = function() {
             address: '25 Broadway',
             city: 'New York',
             state: 'NY',
-            zip: '10004'           
+            zip: '10004'
         }
     ];
 
@@ -80,7 +82,7 @@ var seedUsers = function () {
                     email: 'ontima@gmail.com',
                     password: 'password',
                     address: broadway
-                }      
+                }
             ];
 
             return User.create(users);
@@ -192,8 +194,33 @@ var seedOrders = function(){
         })
 
     })
-}
+};
 
+
+var seedReviews = function(){
+    var reviews;
+    return User.findOne({email: 'obama@gmail.com'}).exec()
+    .then(function(user){
+        return Product.findOne({name: 'Classic Waffles'}).exec()
+        .then(function(product){
+            reviews = [
+                {
+                    user: user._id,
+                    product: product._id,
+                    rating: 5,
+                    description: 'The best waffles ever!'
+                },
+                {
+                    user: user._id,
+                    product: product._id,
+                    rating: 4,
+                    description: 'Pretty good waffles'
+                }               
+            ]
+            return Review.create(reviews);
+        })
+    })
+};
 
 connectToDb
     .then(function () {
@@ -213,6 +240,9 @@ connectToDb
     })
     .then(function(){
         return seedOrders();
+    })
+    .then(function(){
+        return seedReviews();
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));
