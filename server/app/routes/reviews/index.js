@@ -16,6 +16,7 @@ router.get('/', function(req, res, next){
 
 router.get('/:productid', function(req, res, next){
 	Review.find({product: req.params.productid})
+	.populate('user')
 	.then(function(reviews){
 		res.json(reviews);
 	}, next);
