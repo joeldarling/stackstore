@@ -198,20 +198,26 @@ var seedOrders = function(){
 
 
 var seedReviews = function(){
-    var review;
+    var reviews;
     return User.findOne({email: 'obama@gmail.com'}).exec()
     .then(function(user){
         return Product.findOne({name: 'Classic Waffles'}).exec()
         .then(function(product){
-            review = [
+            reviews = [
                 {
                     user: user._id,
                     product: product._id,
                     rating: 5,
                     description: 'The best waffles ever!'
-                }
+                },
+                {
+                    user: user._id,
+                    product: product._id,
+                    rating: 4,
+                    description: 'Pretty good waffles'
+                }               
             ]
-            return Review.create(review);
+            return Review.create(reviews);
         })
     })
 };
