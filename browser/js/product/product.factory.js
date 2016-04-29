@@ -23,10 +23,16 @@ app.factory('ProductFactory', function($http){
 		});
 	};
 
-	ProductFactory.fetchReviewById = function(){
+	ProductFactory.fetchReviewsByProduct = function(){
 		return $http.get('/api/products/' + id + 'reviews')
 		.then(function(response){
-			return response.data;
+			var total = 0;
+			response.data.forEach(function(review){
+				total += review.rating;
+			})
+			var average = Math.floor(total/response.data.length));
+
+			return {data: response.data, average: average};
 		});
 	};
 
