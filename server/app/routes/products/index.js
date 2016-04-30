@@ -6,6 +6,7 @@ var Product = mongoose.model('Product');
 var Review = mongoose.model('Review');
 
 router.get('/', function(req, res, next){
+	console.log('test');
 	Product.find({})
 	.populate('category')
 	.then(function(products){
@@ -31,7 +32,7 @@ router.delete('/:id', function(req, res, next){
 });
 
 
-router.get('/:id/reviews', function(req, res, next){
+router.get('/reviews/:id', function(req, res, next){
 	Review.find({product: req.params.id})
 	.then(function(reviews){
 		res.json(reviews);

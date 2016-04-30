@@ -1,7 +1,7 @@
 app.config(function ($stateProvider) {
 
-    $stateProvider.state('product', {
-        url: '/product',
+    $stateProvider.state('products', {
+        url: '/products',
         controller: 'ProductController',
         templateUrl: 'js/product/products.html',
         resolve:{
@@ -29,8 +29,8 @@ app.config(function ($stateProvider) {
           categories: function(CategoryFactory){
             return CategoryFactory.fetchAll();
           },
-          reviews: function($stateParams, ReviewFactory){
-            return ReviewFactory.fetchByProduct($stateParams.productid);
+          reviews: function($stateParams, ProductFactory){
+            return ProductFactory.fetchReviewsByProduct($stateParams.productid);
           }
         }
     });
@@ -68,19 +68,20 @@ app.config(function ($stateProvider) {
 
 
 
-app.controller('ProductController', function($scope, products, categories){
+app.controller('ProductController', function($scope, categories, products){
 
   $scope.products = products;
   $scope.categories = categories;
-
 });
 
-app.controller('ProductDetailController', function($scope, CartFactory, OrderFactory, ngToast, product, categories, reviews){
+app.controller('ProductDetailController', function($scope, CartFactory, OrderFactory, ngToast, reviews, product, categories){
 
   $scope.product = product;
   $scope.categories = categories;
   $scope.showReviews;
-  $scope.reviews = reviews;
+  $scope.reviews = reviews.data;
+
+  console.log($scope.reviews)
 
   $scope.addToCart = function(product){
     OrderFactory.addOne(CartFactory.getCartId(), product)
