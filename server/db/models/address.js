@@ -4,12 +4,12 @@ var schema = new mongoose.Schema({
     address: {
         type: String,
         required: true
-    },
+    },//confusing.. street?
     city: {
-        type: String
+        type: String //required?
     },
     state: {
-        type: String
+        type: String//required?
     },
     zip: {
     	type: String

@@ -22,7 +22,10 @@ router.get('/:id', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
+  //don't we have the user from passport req.user?
 
+  //how about putting this logic into order model?
+  //Order.getCart(req.user)
 	Order.findOne({user: req.body.user, status: 'Cart'})
 	.populate('products.product')
 	.then(function(cart){
@@ -32,6 +35,15 @@ router.post('/', function(req, res, next){
                 user: req.body.user,
                 status: 'Cart'
             });
+      //why nest here? can't you flatten this out?
+      //if(cart)
+      //  return cart
+      //var new Cart = ....;
+      //return newCart.save();
+      //})
+      //.then(function(cart){
+      //    res.send(cart);
+      //});
            	newCart.save()
            	.then(function(response){
            		res.send(response);
@@ -43,6 +55,30 @@ router.post('/', function(req, res, next){
 	});
 });
 
+//see if this can be a restful route...
+//router.put('/:id', function(){
+//  how about passing a cart to the server
+//  also-- does a cart have products or lineItems?
+//  in any event you can pass the entire cart back and save the cart -- or find out what changed and just edit that
+//  what you are calling product in the order.products is really a lineItem .. no?
+//)
+//also-- too much logic here.. how about having the order do the work?
+// Order.updateCart(req.body, req.user) ?
+/*
+  imagine if you're req.body looked like this--
+  { lineItems: [
+      {
+        quantity: 3,
+        _id: xxxxx
+      },
+      {
+        quantity: 6,
+        _id: xxxxx
+      }
+  ] }
+
+  then you could loop over lineItems.. find the appropriate product, set the price, reduce the quantity for that product perhaps.. and then just find the current cart, set the lineItems to your new values.. and save.. much simpler
+ */
 router.put('/:id', function(req, res, next){
 
 	Order.findOne({_id: req.params.id})
@@ -59,7 +95,8 @@ router.put('/:id', function(req, res, next){
 				order.products.push({
 					product: req.body.productid,
 					quantity: 1,
-					price: req.body.price
+					price: req.body.price//why is this being sent to the server.. dangerous
+          // can't we do a lookup for the price
 				});
 			} else {
 				order.products[index].quantity++;
@@ -85,7 +122,9 @@ router.delete('/:id', function(req, res, next){
 	}, next);
 });
 
-
+//this is fine.. but this really is an update of the cart
+//in any event this logic belongs in model..
+// find the order.. then order.checkout()
 router.put('/checkout/:id', function(req, res, next){
 	Order.findOne({_id: req.params.id})
 	.then(function(order){
