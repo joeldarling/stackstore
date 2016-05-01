@@ -21,8 +21,8 @@ var schema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    photo: {
-    	type: Buffer
+    photoURL: {
+    	type: String
     }
 });
 
