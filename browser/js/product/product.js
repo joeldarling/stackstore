@@ -74,14 +74,26 @@ app.controller('ProductController', function($scope, categories, products){
   $scope.categories = categories;
 });
 
-app.controller('ProductDetailController', function($scope, CartFactory, OrderFactory, ngToast, reviews, product, categories){
+app.controller('ProductDetailController', function($scope, $state, Session, ProductFactory, CartFactory, OrderFactory, ngToast, reviews, product, categories){
 
   $scope.product = product;
   $scope.categories = categories;
   $scope.showReviews;
   $scope.reviews = reviews.data;
 
-  console.log($scope.reviews)
+  $scope.canReview = true; //TODO Make it so user can only review items they have bought
+  $scope.formData = {rating: 3, description: ""};
+
+  $scope.submitReview = function(){
+    ProductFactory.addReview(product._id, Session.user._id, +$scope.formData.rating, $scope.formData.description)
+    .then(function(res){
+      // $scope.reviews.push(res);
+      $state.reload()
+      $scope.formData = {rating: 3, description: ""};
+
+    });
+
+  };
 
   $scope.addToCart = function(product){
     OrderFactory.addOne(CartFactory.getCartId(), product)
