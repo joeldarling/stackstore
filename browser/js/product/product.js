@@ -82,12 +82,13 @@ app.controller('ProductDetailController', function($scope, CartFactory, OrderFac
   $scope.reviews = reviews.data;
 
   $scope.canReview = true;
-  $scope.description = "";
-  $scope.rating = {};
+  $scope.formData = {rating: 3, description: ""};
 
   $scope.submitReview = function(){
-    console.log('rating', $scope.rating)
+
+
   };
+
   $scope.addToCart = function(product){
     OrderFactory.addOne(CartFactory.getCartId(), product)
     .then(function(result){

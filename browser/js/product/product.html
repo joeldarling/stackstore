@@ -23,21 +23,22 @@
     <div ng-show="canReview">
       <h3>Leave a Review</h3>
 
-      <div class="input-group">
-        <label ng-repeat="star in ['1','2','3','4','5']" >
+      <div class="input-group" >
+        <label ng-repeat="star in ['1','2','3','4','5']" for="{{star}}" >
         {{ star }}
         <input type="radio"
-                    ng-model="rating.value"
-                    ng-value="5"
-                    name="favorite">
+                    ng-model="formData.rating"
+                    ng-value="star"
+                    name="star"
+                    class="radio-inline">
 
 
      </label>
 
-     <textarea class="form-control" rows="5" id="comment"></textarea>
+     <textarea ng-model="formData.description" class="form-control" rows="5" id="comment"></textarea>
 
      <br/>
-        <button ng-click="submitReview()" class="btn btn-primary">Submit</button>
+        <button ng-disabled="formData.description.length < 10" ng-click="submitReview()" class="btn btn-primary">Submit</button>
       </div>
     </div>
   </div>
