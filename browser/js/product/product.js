@@ -81,7 +81,7 @@ app.controller('ProductDetailController', function($scope, $state, Session, Prod
   $scope.showReviews;
   $scope.reviews = reviews.data;
 
-  $scope.canReview = true;
+  $scope.canReview = true; //TODO Make it so user can only review items they have bought
   $scope.formData = {rating: 3, description: ""};
 
   $scope.submitReview = function(){
