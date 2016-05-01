@@ -34,6 +34,7 @@ router.delete('/:id', function(req, res, next){
 
 router.get('/reviews/:id', function(req, res, next){
 	Review.find({product: req.params.id})
+	.populate('user')
 	.then(function(reviews){
 		res.json(reviews);
 	}, next);

@@ -7,14 +7,38 @@
   </ul>
 
 <div class="container">
+  <div class="col-sm-6">
+    <h3>{{ product.name }} - ${{ product.price }}</h3>
+    <p> {{ product.description }} </p>
 
-  <h3>{{ product.name }} - ${{ product.price }}</h3>
-  <p> {{ product.description }} </p>
+    <a ng-show="reviews.length>0" ng-click="showReviews =! showReviews">Show Reviews</a>
+    <div ng-hide="showReviews">
+      <review ng-repeat="review in reviews" review="review"></review>
+    </div>
 
-  <a ng-show="reviews.length>0" ng-click="showReviews =! showReviews">Show Reviews</a>
-  <div ng-hide="showReviews">
-    <review ng-repeat="review in reviews" review="review"></review>
+    <button ng-click="addToCart(product._id)" class="btn btn-primary"> Add to cart </button>
   </div>
 
-  <button ng-click="addToCart(product._id)" class="btn btn-primary"> Add to cart </button>
+  <div class="col-sm-6">
+    <div ng-show="canReview">
+      <h3>Leave a Review</h3>
+
+      <div class="input-group">
+        <label ng-repeat="star in ['1','2','3','4','5']" >
+        {{ star }}
+        <input type="radio"
+                    ng-model="rating.value"
+                    ng-value="5"
+                    name="favorite">
+
+
+     </label>
+
+     <textarea class="form-control" rows="5" id="comment"></textarea>
+
+     <br/>
+        <button ng-click="submitReview()" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
 </div>
