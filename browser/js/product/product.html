@@ -15,6 +15,9 @@
     <div ng-hide="showReviews">
       <review ng-repeat="review in reviews" review="review"></review>
     </div>
+  <h3>{{ product.name }} - ${{ product.price }}</h3>
+  <p> {{ product.description }} </p>
+  <p><IMG ng-src="{{ product.photoURL }}" ALT="image" class="img-rounded" width="300" height="250"></p>
 
     <button ng-click="addToCart(product._id)" class="btn btn-primary"> Add to cart </button>
   </div>
@@ -31,7 +34,7 @@
                     name="star"
                     class="radio-inline">
 
-                    {{ star }}      
+                    {{ star }}
      </label>
 
      <textarea ng-model="formData.description" class="form-control" rows="5" id="comment"></textarea>

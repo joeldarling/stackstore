@@ -122,42 +122,48 @@ var seedProducts = function() {
                         price: 5.00,
                         inventoryQty: 100,
                         category: waffles,
-                        description: 'Stack of classic waffles'
+                        description: 'Stack of classic waffles', 
+                        photoURL: 'https://dl.dropboxusercontent.com/s/3kx6arl2luookvt/classic-waffle.jpeg?dl=0'
                     },
                     {
                         name: 'Chocolate Chip Waffles',
                         price: 7.00,
                         inventoryQty: 50,
                         category: waffles,
-                        description: 'Stack of chocolate chip waffles'
+                        description: 'Stack of chocolate chip waffles',
+                        photoURL: 'https://dl.dropboxusercontent.com/s/dv9z9glll650h4a/choc-chip-waffle.jpg?dl=0'
                     },
                     {
                         name: 'Chicken and Waffles',
                         price: 12.00,
                         inventoryQty: 50,
                         category: waffles,
-                        description: 'Waffles with fried chicken'
+                        description: 'Waffles with fried chicken',
+                        photoURL: 'https://dl.dropboxusercontent.com/s/y78daqqe0v32hlx/waffle-chickens.JPG?dl=0'
                     },
                     {
                         name: 'OJ',
                         price: 3.00,
                         inventoryQty: 100,
                         category: drinks,
-                        description: 'Orange Juice'
+                        description: 'Orange Juice',
+                        photoURL: 'https://dl.dropboxusercontent.com/s/wzxtnnf7u28v2vz/orange-juice.png?dl=0'
                     },
                     {
                         name: 'Round Waffle Maker',
                         price: 30.00,
                         inventoryQty: 25,
                         category: equipments,
-                        description: 'Round Waffle Maker'
+                        description: 'Round Waffle Maker',
+                        photoURL: 'https://dl.dropboxusercontent.com/s/wu3z6f9kx3v1k5u/round-waffle.jpg?dl=0'
                     },
                     {
                         name: 'Square Waffle Maker',
                         price: 35.00,
                         inventoryQty: 20,
                         category: equipments,
-                        description: 'Square Waffle Maker'
+                        description: 'Square Waffle Maker',
+                        photoURL: 'https://dl.dropboxusercontent.com/s/bdpjnc2wkwelod5/waffle-square.jpg?dl=0'
                     }
                 ];
                 return Product.create(products);
