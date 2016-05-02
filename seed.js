@@ -76,11 +76,13 @@ var seedUsers = function () {
                 {
                     email: 'obama@gmail.com',
                     password: 'potus',
+                    status: 'admin',
                     address: hanover
                 },
                 {
                     email: 'ontima@gmail.com',
                     password: 'password',
+                    status: 'admin',
                     address: broadway
                 }
             ];

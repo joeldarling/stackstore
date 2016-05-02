@@ -28,6 +28,12 @@ var schema = new mongoose.Schema({
     address: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'Address'
     }],
+    status: {
+        type: String
+    },
+    passwordReset: {
+        type: Boolean
+    }
 });
 
 // method to remove sensitive information from user objects before sending them out
