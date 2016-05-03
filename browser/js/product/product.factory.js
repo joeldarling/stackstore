@@ -53,6 +53,20 @@ app.factory('ProductFactory', function($http){
 		});
 	};
 
+	ProductFactory.addProduct = function(name, description, category, price, inventory, photo){
+		return $http.post('/', {
+			name: name,
+			description: description,
+			category: category,
+			price: price,
+			inventory: inventory,
+			photo: photo
+		})
+		.then(function(response){
+			return response.data;
+		});
+	};
+
 	return ProductFactory;
 
 });
