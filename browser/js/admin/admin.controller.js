@@ -6,6 +6,4 @@ app.controller('AdminController', function($scope, users, products, orders){
 
   $scope.state = 'Users';
 
-  console.log(users)
-
 });
