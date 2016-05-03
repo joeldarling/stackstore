@@ -15,6 +15,23 @@ router.get('/', function(req, res, next){
 	.then(null, next);
 });
 
+
+router.post('/', function(req, res, next){
+	var newProduct = new Product({
+		name: req.body.name,
+		description: req.body.description,
+		category: req.body.category,
+		price: req.body.price,
+		inventoryQty: req.body.inventory,
+		photoUrl: req.body.photo
+	});
+	newProduct.save()
+	.then(function(response){
+		res.send(response);
+	}, next);
+});
+
+
 router.get('/:id', function(req, res, next){
 	Product.findOne({_id: req.params.id})
 	.populate('category')

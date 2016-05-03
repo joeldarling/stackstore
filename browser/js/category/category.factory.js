@@ -16,6 +16,13 @@ app.factory('CategoryFactory', function($http){
         return products.data;
       });
 
+    },
+
+    addCategory: function(name){
+      return $http.post('/api/categories', {name: name})
+      .then(function(response){
+        return response.data;
+      });
     }
 
   };

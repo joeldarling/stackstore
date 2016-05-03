@@ -13,6 +13,14 @@ router.get('/', function(req, res, next){
 	}, next);
 });
 
+router.post('/', function(req, res, next){
+	var newCategory = new Category({name: req.body.name});
+	newCategory.save()
+	.then(function(response){
+		res.send(response);
+	}, next);
+});
+
 router.get('/:name', function(req, res, next){
 
 	Product.getByCategory(req.params.name)
