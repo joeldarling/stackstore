@@ -87,8 +87,8 @@ app.controller('ProductDetailController', function($scope, $state, Session, Prod
   $scope.submitReview = function(){
     ProductFactory.addReview(product._id, Session.user._id, +$scope.formData.rating, $scope.formData.description)
     .then(function(res){
-      // $scope.reviews.push(res);
-      $state.reload()
+
+      $state.reload();
       $scope.formData = {rating: 3, description: ""};
 
     });

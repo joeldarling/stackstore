@@ -10,7 +10,7 @@ var Order = mongoose.model('Order');
 var Address = mongoose.model('Address');
 
 router.get('/', function(req, res, next){
-	User.find({},{email: 1, address: 1, isAdmin: 1})
+	User.find({},{email: 1, address: 1, status: 1})
 	.then(function(users){
 		res.json(users);
 	})

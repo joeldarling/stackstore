@@ -71,18 +71,19 @@ var seedUsers = function () {
                 {
                     email: 'testing@fsa.com',
                     password: 'password',
+                    status: 'Yes',
                     address: hanover
                 },
                 {
                     email: 'obama@gmail.com',
                     password: 'potus',
-                    status: 'admin',
+                    status: 'Yes',
                     address: hanover
                 },
                 {
                     email: 'ontima@gmail.com',
                     password: 'password',
-                    status: 'admin',
+                    status: 'Yes',
                     address: broadway
                 }
             ];
@@ -124,7 +125,7 @@ var seedProducts = function() {
                         price: 5.00,
                         inventoryQty: 100,
                         category: waffles,
-                        description: 'Stack of classic waffles', 
+                        description: 'Stack of classic waffles',
                         photoURL: 'https://dl.dropboxusercontent.com/s/3kx6arl2luookvt/classic-waffle.jpeg?dl=0'
                     },
                     {
@@ -223,7 +224,7 @@ var seedReviews = function(){
                     product: product._id,
                     rating: 4,
                     description: 'Pretty good waffles'
-                }               
+                }
             ]
             return Review.create(reviews);
         })
