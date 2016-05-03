@@ -129,4 +129,15 @@ router.put('/checkout/:id', function(req, res, next){
 });
 
 
+router.put('/status/:id', function(req, res, next){
+	Order.findOne({_id: req.params.id})
+	.then(function(order){
+		order.status = req.body.status;
+		return order.save();
+	})
+	.then(function(response){
+		res.send(response);
+	}, next);
+});
+
 module.exports = router;
