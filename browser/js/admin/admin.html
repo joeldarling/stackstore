@@ -1,14 +1,13 @@
 <div class="container">
 
-  <h2>Admin Dashboard  </h2>
+  <h2>Admin Dashboard </h2>
 
-  <button class="btn btn-primary"> Users </button>
-  <button class="btn btn-primary"> Orders </button>
-  <button class="btn btn-primary"> Products </button>
+  <a ui-sref="admin.users"> Users </a>
+  <a ui-sref="admin.orders"> Orders </a>
+  <a ui-sref="admin.products" > Products </a>
 
-  <div ng-show="state='Users'">
-    {{ users }}
-  </div>
+  <hr/>
+  <ui-view></ui-view>
 
 
 </div>

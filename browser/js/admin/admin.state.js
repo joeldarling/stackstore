@@ -20,3 +20,33 @@ app.config(function ($stateProvider) {
     });
 
 });
+
+app.config(function ($stateProvider) {
+
+    $stateProvider.state('admin.users', {
+        url: '/users',
+        controller: 'AdminUserController',
+        templateUrl: 'js/admin/admin.users.html'
+    });
+
+});
+
+app.config(function ($stateProvider) {
+
+    $stateProvider.state('admin.products', {
+        url: '/products',
+        controller: 'AdminProductController',
+        templateUrl: 'js/admin/admin.products.html'
+    });
+
+});
+
+app.config(function ($stateProvider) {
+
+    $stateProvider.state('admin.orders', {
+        url: '/orders',
+        controller: 'AdminOrderController',
+        templateUrl: 'js/admin/admin.orders.html',
+    });
+
+});

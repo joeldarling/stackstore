@@ -1,0 +1,10 @@
+<h3> Products </h3>
+
+
+<div ng-repeat="product in products" class="well">
+  <p> Product: {{ product.name }} </p>
+  <p> Description: {{ product.description }} </p>
+  <p> Price: {{ product.price }} <span>Inventory: {{ product.inventoryQty }}</span></p>
+  <img width="20%" height="20%" ng-src="{{product.photoURL}}"></img>
+  <p> Categories: <span ng-repeat="category in product.categories">{{ category }}</span></p<
+</div>
