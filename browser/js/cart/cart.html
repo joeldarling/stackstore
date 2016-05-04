@@ -27,6 +27,14 @@
             <h4> Order Total: ${{ total }} </h4>
         </div>
 
+        <div>
+            <p>Shipping Address: </p>
+            <select ng-model="selectedAddress">
+                <option ng-repeat="address in addresses" value="{{address.address}}">{{address.address}} {{address.city}} {{address.state}} {{address.zip}}</option>
+                <option value="" ng-if="false"></option>
+            </select>
+        </div>
+        <br>
         <button class="btn btn-primary" ng-disabled="cart.products.length<1" ng-click="checkout()"> Complete Purchase </button>
 
     </div>
