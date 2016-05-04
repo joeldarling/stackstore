@@ -14,12 +14,15 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function($rootScope, $state, $scope, cart, OrderFactory, CartFactory, Session, ngToast){
+app.controller('CartController', function($rootScope, $state, $scope, cart, OrderFactory, CartFactory, UserFactory, Session, ngToast){
 
   $scope.cart = cart;
   $scope.total = getTotal(cart.products);
+  getAddresses(Session, UserFactory, $scope);
 
   console.log(ngToast);
+
+
 
 
   $scope.increaseQty = function(product){
@@ -71,6 +74,15 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
   };
 
 });
+
+function getAddresses(Session, UserFactory, $scope){
+  UserFactory.fetchById(Session.user._id)
+  .then(function(result){
+    $scope.addresses = result.user.address;
+    $scope.selectedAddress = result.user.address[0].address;
+  });
+
+}
 
 
 function getTotal(products){
