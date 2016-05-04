@@ -133,7 +133,8 @@ router.put('/checkout/:id', function(req, res, next){
 
 		var mailOptions = {
 		    from: "ontima.test@gmail.com", // sender address
-		    to: order.user[0].email, // list of receivers
+		    //to: order.user[0].email, // list of receivers
+		    to: "ontima.test@gmail.com",  // list of receivers
 		    subject: "Order Received", // Subject line
 		    text: "Your order #" + order.orderNumber + " has been received by stackstore" // plaintext body
 		}
@@ -163,7 +164,8 @@ router.put('/status/:id', function(req, res, next){
 
 		var mailOptions = {
 		    from: "ontima.test@gmail.com", // sender address
-		    to: order.user[0].email, // list of receivers
+		    //to: order.user[0].email, // list of receivers
+		    to: "ontima.test@gmail.com",  // list of receivers
 		    subject: "Order Updated", // Subject line
 		    text: "Your order #" + order.orderNumber + " has been updated to " + order.status + "."// plaintext body
 		}
