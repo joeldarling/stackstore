@@ -13,6 +13,21 @@
 
 <div class="col-sm-6">
   <h3> Add New Product </h3>
+  <form name="newProductForm">
+    <div class="input-group">
+      <div class="input-group">
+         <input type="text" class="form-control" placeholder="Product Name" ng-model="newProduct.name" required>
+         <textarea ng-model="newProduct.description" placeholder="Description" class="form-control" rows="5" required></textarea>
+         <input type="number" class="form-control" placeholder="Price" ng-model="newProduct.price" required>
+         <input type="text" class="form-control" placeholder="Photo URL" ng-model="newProduct.photo" >
+         <input type="number" class="form-control" placeholder="Inventory Qty" ng-model="newProduct.inventory" required>
+         <select class="form-control"  ng-options="catg as catg.name for catg in categories track by catg._id" ng-model="newProduct.category"></select>
+         <button ng-disabled="newProductForm.$invalid" class="btn btn-primary" ng-click="createProduct()">Create</form>
+       </div>
+    </div>
+  </form>
+
+
   <h3> Add New Category </h3>
     <div class="input-group">
      <span class="input-group-addon" id="basic-addon1">Category Name</span>

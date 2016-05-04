@@ -16,6 +16,7 @@ router.get('/', function(req, res, next){
 
 
 router.post('/', function(req, res, next){
+
 	var newProduct = new Product({
 		name: req.body.name,
 		description: req.body.description,

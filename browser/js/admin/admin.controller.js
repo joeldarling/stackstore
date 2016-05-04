@@ -47,11 +47,12 @@ app.controller('AdminUserController', function($scope, $state, UserFactory){
 });
 
 
-app.controller('AdminProductController', function($scope, $state, CategoryFactory, categories){
+app.controller('AdminProductController', function($scope, $state, CategoryFactory, ProductFactory, categories){
 
   $scope.category = "";
   $scope.categories = categories;
   $scope.showCategories = true;
+  $scope.newProduct = {category: $scope.categories[0]};
 
 
   $scope.createCategory = function(){
@@ -60,6 +61,18 @@ app.controller('AdminProductController', function($scope, $state, CategoryFactor
     .then(function(){
       $scope.category = "";
       $state.reload();
+    });
+
+  };
+
+  $scope.createProduct = function(){
+    console.log($scope.newProduct);
+    ProductFactory.addProduct($scope.newProduct)
+    .then(function(res){
+      console.log(res);
+      $scope.newProduct = {category: $scope.categories[0]};
+      $state.reload();
+
     });
 
   };
