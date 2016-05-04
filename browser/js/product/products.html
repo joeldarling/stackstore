@@ -6,10 +6,15 @@
   </ul>
 
 <div class="container">
+
   <div ng-show="products.length===0" class="well">
     <p> There are no products in this category! </p>
   </div>
-  <div ng-repeat="product in products" >
+
+  <div>
+    <label>Search: <input ng-model="searchText"></label>
+  </div>
+  <div ng-repeat="product in products | filter:searchText" >
 
     <product product="product"></product>
 
