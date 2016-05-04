@@ -69,12 +69,17 @@ app.controller('AdminProductController', function($scope, $state, CategoryFactor
     console.log($scope.newProduct);
     ProductFactory.addProduct($scope.newProduct)
     .then(function(res){
-      console.log(res);
       $scope.newProduct = {category: $scope.categories[0]};
       $state.reload();
-
     });
 
+  };
+
+  $scope.deleteProduct = function(product){
+    ProductFactory.deleteProduct(product)
+    .then(function(){
+      $state.reload();
+    });
   };
 
 

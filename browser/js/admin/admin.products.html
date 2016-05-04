@@ -8,6 +8,7 @@
     <p> Price: {{ product.price }} <span>Inventory: {{ product.inventoryQty }}</span></p>
     <img width="20%" height="20%" ng-src="{{product.photoURL}}"></img>
     <p> Categories: <span ng-repeat="category in product.category">{{ category.name }}</span></p>
+    <button ng-click="deleteProduct(product._id)" class="btn btn-danger">Delete</delete>
   </div>
 </div>
 
