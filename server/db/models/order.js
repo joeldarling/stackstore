@@ -25,15 +25,13 @@ var schema = new mongoose.Schema({
     },
     orderNumber:{
       type: String,
+      default: orderNumGen
     }
 });
 
-schema.pre('validate' , function(next){
 
-  this.orderNumber = Math.random().toString(36).toUpperCase().slice(10);
-  next();
-
-});
-
+function orderNumGen(){
+  return Math.random().toString(36).toUpperCase().slice(10);
+}
 
 mongoose.model('Order', schema);

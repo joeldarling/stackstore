@@ -36,7 +36,12 @@ app.config(function ($stateProvider) {
     $stateProvider.state('admin.products', {
         url: '/products',
         controller: 'AdminProductController',
-        templateUrl: 'js/admin/admin.products.html'
+        templateUrl: 'js/admin/admin.products.html',
+        resolve: {
+          categories: function(CategoryFactory){
+            return CategoryFactory.fetchAll();
+          }
+        }
     });
 
 });

@@ -53,15 +53,15 @@ app.factory('ProductFactory', function($http){
 		});
 	};
 
-	ProductFactory.addProduct = function(name, description, category, price, inventory, photo){
-		return $http.post('/', {
-			name: name,
-			description: description,
-			category: category,
-			price: price,
-			inventory: inventory,
-			photo: photo
-		})
+	ProductFactory.addProduct = function(product){
+		return $http.post('/api/products', product)
+		.then(function(response){
+			return response.data;
+		});
+	};
+
+	ProductFactory.deleteProduct = function(product){
+		return $http.delete('/api/products/'+ product)
 		.then(function(response){
 			return response.data;
 		});

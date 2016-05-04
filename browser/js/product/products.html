@@ -6,7 +6,9 @@
   </ul>
 
 <div class="container">
-
+  <div ng-show="products.length===0" class="well">
+    <p> There are no products in this category! </p>
+  </div>
   <div ng-repeat="product in products" >
 
     <product product="product"></product>
