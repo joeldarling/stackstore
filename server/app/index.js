@@ -18,10 +18,40 @@ app.use('/api', require('./routes'));
 
 
 app.use(function (req, res, next) {
-  console.log(req.session);
-    if(!req.session.cartId) {
-        console.log("No cart found for this session...creating one now.");
+  // console.log(req.session);
+  // console.log(req.user);
+  // console.log(req.cookies)
 
+    if(!req.session.cartId && !req.user) {
+
+      //user is NOT logged in, find the cart
+      Order.findOne({sessionId: req.cookies['connect.sid']})
+      .then(function(cart){
+        if(!cart){
+          console.log('no match, make a cart')
+          Order.create({
+                  sessionId: req.cookies['connect.sid'],
+                  status: 'Cart',
+              })
+              .then(function(cart) {
+                  req.session.cartId = cart._id;
+                  next();
+
+              })
+              .catch(function(err) {
+                  console.log("ERROR:",err);
+              });
+        }
+        else{
+          console.log('there is a cart!', cart);
+          req.session.cartId = cart._id;
+        }
+
+      });
+        // console.log("No cart found for this session...creating one now.");
+
+    } else {
+      console.log("there's a cart", req.session.cartId);
     }
     next();
 });

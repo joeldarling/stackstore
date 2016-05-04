@@ -23,6 +23,9 @@ var schema = new mongoose.Schema({
     total: {
       type: Number
     },
+    sessionId: {
+      type: String
+    },
     orderNumber:{
       type: String,
       default: orderNumGen
