@@ -83,9 +83,15 @@ app.controller('AdminProductController', function($scope, $state, CategoryFactor
 
 
 });
-app.controller('AdminOrderController', function($scope){
+app.controller('AdminOrderController', function($scope, $state, OrderFactory){
 
-  $scope.statusFilter = "Created"
+  $scope.statusFilter = "";
+  $scope.statusOptions = ['Created', 'Processing', 'Cancelled', 'Completed'];
 
-
+  $scope.updateStatus = function(order, status){
+    OrderFactory.updateStatus(order, status)
+    .then(function(){
+      $state.reload();
+    });
+  };
 });
