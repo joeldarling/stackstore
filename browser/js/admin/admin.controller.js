@@ -66,7 +66,6 @@ app.controller('AdminProductController', function($scope, $state, CategoryFactor
   };
 
   $scope.createProduct = function(){
-    console.log($scope.newProduct);
     ProductFactory.addProduct($scope.newProduct)
     .then(function(res){
       $scope.newProduct = {category: $scope.categories[0]};
@@ -86,6 +85,7 @@ app.controller('AdminProductController', function($scope, $state, CategoryFactor
 });
 app.controller('AdminOrderController', function($scope){
 
+  $scope.statusFilter = "Created"
 
 
 });
