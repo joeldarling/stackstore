@@ -7,6 +7,12 @@ app.factory('UserFactory', function($http){
         return res.data;
       });
     },
+    fetchAll: function(){
+      return $http.get('/api/users')
+      .then(function(res){
+        return res.data;
+      });
+    },
 
     addUser: function(email, status, address, city, state, zip){
     	return $http.post('/api/users', {
@@ -33,21 +39,21 @@ app.factory('UserFactory', function($http){
      	return $http.put('/api/users/passwordreset/' + id)
     	.then(function(response){
     		return response.data;
-    	});   	
+    	});
     },
 
     updatePassword: function(id, password){
       	return $http.put('/api/users/password/' + id, {password: password})
     	.then(function(response){
     		return response.data;
-    	});     	
+    	});
     },
 
     deleteUser: function(id){
      	return $http.delete('/api/users/' + id)
     	.then(function(response){
     		return response.data;
-    	});   	
+    	});
     }
 
   };

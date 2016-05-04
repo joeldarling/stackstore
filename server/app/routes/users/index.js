@@ -10,7 +10,7 @@ var Order = mongoose.model('Order');
 var Address = mongoose.model('Address');
 
 router.get('/', function(req, res, next){
-	User.find({})
+	User.find({},{email: 1, address: 1, status: 1})
 	.then(function(users){
 		res.json(users);
 	})
@@ -35,7 +35,6 @@ router.get('/:id', function(req, res, next){
 		})
 	])
 	.then(function(result){
-		console.log(result[1].products)
 		res.json({user: result[0], orders: result[1]});
 	});
 
@@ -100,5 +99,5 @@ router.delete('/:id', function(req, res, next){
 	User.findOneAndRemove({_id: req.params.id})
 	.then(function(response){
 		res.send(response);
-	}, next);	
+	}, next);
 });

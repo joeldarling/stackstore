@@ -33,6 +33,10 @@ var schema = new mongoose.Schema({
     },
     passwordReset: {
         type: Boolean
+    },
+    isAdmin:{
+      type: Boolean,
+      default: true
     }
 });
 

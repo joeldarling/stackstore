@@ -1,0 +1,18 @@
+<h3> Orders </h3>
+<a ng-click="statusFilter=''"> All </a>
+<a ng-click="statusFilter='Created'"> Created </a>
+<a ng-click="statusFilter='Processing'"> Processing </a>
+<a ng-click="statusFilter='Cancelled'"> Cancelled </a>
+<a ng-click="statusFilter='Completed'"> Completed </a>
+
+
+
+<div ng-repeat="order in orders | filter:statusFilter" class="well">
+  <p> Order: {{ order.orderNumber }}</p>
+  <p> Status: {{ order.status }}</p>
+  <p> Total: {{ order.total }} </p>
+  <p> Date: {{ order.orderDate }} </p>
+  <button ng-click="updateStatus(order._id, 'Completed')" ng-disabled="order.status == 'Completed'" class="btn btn-success"> Complete </button>
+  <button ng-click="updateStatus(order._id, 'Cancelled')" class="btn btn-danger"> Cancel Order </button>
+
+</div>
