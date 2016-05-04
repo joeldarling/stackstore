@@ -5,6 +5,15 @@ var mongoose = require('mongoose');
 var Order = mongoose.model('Order');
 var Product = mongoose.model('Product');
 var Address = mongoose.model('Address');
+var nodemailer = require('nodemailer');
+
+var smtpTransport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: "ontima.test@gmail.com",
+        pass: "stackstore"
+    }
+});
 
 router.get('/', function(req, res, next){
 	Order.find({})
@@ -88,6 +97,7 @@ router.delete('/:id', function(req, res, next){
 
 router.put('/checkout/:id', function(req, res, next){
 	Order.findOne({_id: req.params.id})
+	.populate('user')
 	.then(function(order){
 		//loop through products in the order to update inventory
 		order.products.forEach(function(item){
@@ -121,6 +131,22 @@ router.put('/checkout/:id', function(req, res, next){
 			});
 		}
 
+		var mailOptions = {
+		    from: "ontima.test@gmail.com", // sender address
+		    to: order.user[0].email, // list of receivers
+		    subject: "Order Received", // Subject line
+		    text: "Your order #" + order.orderNumber + " has been received by stackstore" // plaintext body
+		}
+
+		// send mail with defined transport object
+		smtpTransport.sendMail(mailOptions, function(error, info){
+		    if(error){
+		        console.log(error);
+		    }else{
+		        console.log("Message sent: " + info.response);
+		    }
+		});
+
 		return order.save();
 	})
 	.then(function(response){
@@ -131,8 +157,26 @@ router.put('/checkout/:id', function(req, res, next){
 
 router.put('/status/:id', function(req, res, next){
 	Order.findOne({_id: req.params.id})
+	.populate('user')
 	.then(function(order){
 		order.status = req.body.status;
+
+		var mailOptions = {
+		    from: "ontima.test@gmail.com", // sender address
+		    to: order.user[0].email, // list of receivers
+		    subject: "Order Updated", // Subject line
+		    text: "Your order #" + order.orderNumber + " has been updated to " + order.status + "."// plaintext body
+		}
+
+		// send mail with defined transport object
+		smtpTransport.sendMail(mailOptions, function(error, info){
+		    if(error){
+		        console.log(error);
+		    }else{
+		        console.log("Message sent: " + info.response);
+		    }
+		});
+
 		return order.save();
 	})
 	.then(function(response){
