@@ -45,7 +45,24 @@ app.controller('AdminUserController', function($scope, $state, UserFactory){
   };
 
 });
-app.controller('AdminProductController', function($scope){
+
+
+app.controller('AdminProductController', function($scope, $state, CategoryFactory, categories){
+
+  $scope.category = "";
+  $scope.categories = categories;
+  $scope.showCategories = true;
+
+
+  $scope.createCategory = function(){
+
+    CategoryFactory.addCategory($scope.category)
+    .then(function(){
+      $scope.category = "";
+      $state.reload();
+    });
+
+  };
 
 
 });
