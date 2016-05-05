@@ -48,7 +48,7 @@
         ]);
     });
 
-    app.service('AuthService', function ($http, Session, CartFactory, OrderFactory, $rootScope, AUTH_EVENTS, $q) {
+    app.service('AuthService', function ($http, Session, CartFactory, OrderFactory, $rootScope, AUTH_EVENTS, $q, ngToast) {
 
         function onSuccessfulLogin(response) {
             var data = response.data;
@@ -56,6 +56,10 @@
             .then(function(cart){
 
               Session.create(data.id, data.user);
+
+              if (data.user.passwordReset) {
+                ngToast.create('You need to update your password!');
+              }
 
               CartFactory.createCart(cart._id);
               $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
