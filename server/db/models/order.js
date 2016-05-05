@@ -32,6 +32,27 @@ var schema = new mongoose.Schema({
     }
 });
 
+schema.statics.combineCart = function(sessionCart, userCart){
+  var self = this;
+  var cartToCombine;
+
+  self.findOne({sessionId: sessionCart})
+  .then(function(_cart){
+    cartToCombine = _cart.products;
+    return self.findOne({user: userCart});
+  })
+  .then(function(_cart){
+
+    _cart.products.push(cartToCombine);
+    return _cart.save();
+  })
+  .then(function(result){
+    return result;
+  });
+
+};
+
+
 schema.statics.findOrCreateUnAuth = function(id){
   var self = this;
 
