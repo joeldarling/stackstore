@@ -5,6 +5,8 @@ var passport = require('passport');
 var path = require('path');
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
+var Order = mongoose.model('Order');
+
 
 var ENABLED_AUTH_STRATEGIES = [
     'local',
@@ -39,6 +41,33 @@ module.exports = function (app) {
     // to a user found in the database.
     passport.deserializeUser(function (id, done) {
         UserModel.findById(id, done);
+    });
+
+    app.use(function (req, res, next) {
+          //console.log('session', req.session)
+          if(!req.session.cartId) {
+
+            if(!req.user){
+              //user is NOT logged in, find the cart
+              Order.findOrCreateUnAuth(req.cookies['connect.sid'])
+              .then(function(cart){
+                req.session.cartId = cart._id;
+                console.log('FIRST',req.session.cartId);
+
+              });
+            } else {
+              //user IS logged in, find the cart
+
+              Order.findOrCreateAuth(req.user._id)
+              .then(function(cart){
+                req.session.cartId = cart._id;
+                console.log('FIRST',req.session.cartId);
+
+              });
+            }
+        }
+
+        next();
     });
 
     // We provide a simple GET /session in order to get session information directly.

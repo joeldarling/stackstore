@@ -7,7 +7,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/cart/cart.html',
         resolve:{
           cart: function(Session, OrderFactory){
-              return OrderFactory.createCart(Session.user._id);
+              return OrderFactory.getCart();
           }
         }
     });
@@ -17,13 +17,8 @@ app.config(function ($stateProvider) {
 app.controller('CartController', function($rootScope, $state, $scope, cart, OrderFactory, CartFactory, UserFactory, Session, ngToast){
 
   $scope.cart = cart;
-  $scope.total = getTotal(cart.products);
-  getAddresses(Session, UserFactory, $scope);
-
-  console.log(ngToast);
-
-
-
+  //$scope.total = getTotal(cart.products);
+  //getAddresses(Session, UserFactory, $scope);
 
   $scope.increaseQty = function(product){
     console.log('order', $scope.cart._id);

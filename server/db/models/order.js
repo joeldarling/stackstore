@@ -32,6 +32,41 @@ var schema = new mongoose.Schema({
     }
 });
 
+schema.statics.findOrCreateUnAuth = function(id){
+  return this.findOne({sessionId: id, status: 'Cart'})
+	.populate('products.product')
+	.then(function(cart){
+		if(!cart){
+			//no cart exists for this user - create one
+
+      this.create({sessionId: id, status: 'Cart'})
+     	.then(function(response){
+     		return response;
+     	});
+		} else {
+			//cart already existed, return cart
+			return cart;
+		}
+  });
+};
+
+schema.statics.findOrCreateAuth = function(id){
+  return this.findOne({user: id, status: 'Cart'})
+	.populate('products.product')
+	.then(function(cart){
+		if(!cart){
+			//no cart exists for this user - create one
+
+      this.create({user: id, status: 'Cart'})
+     	.then(function(response){
+     		return response;
+     	});
+		} else {
+			//cart already existed, return cart
+			return cart;
+		}
+  });
+};
 
 function orderNumGen(){
   return Math.random().toString(36).toUpperCase().slice(10);

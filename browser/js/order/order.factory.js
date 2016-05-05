@@ -24,9 +24,14 @@ app.factory('OrderFactory', function($http){
 	};
 
 
-
+	OrderFactory.getCart = function(){
+		return $http.get('/api/orders/cart')
+		.then(function(res){
+			return res.data;
+		});
+	};
 	OrderFactory.createCart = function(user){
-		return $http.post('/api/orders/', {user: user})
+		return $http.get('/api/orders/', {user: user})
 		.then(function(response){
 			return response.data;
 		});

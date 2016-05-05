@@ -22,6 +22,15 @@ router.get('/', function(req, res, next){
 	}, next);
 });
 
+router.get('/cart', function(req, res, next){
+  Order.findOne({_id: req.session.cartId})
+  .populate('products.product')
+  .then(function(cart){
+    res.json(cart);
+  });
+
+});
+
 router.get('/:id', function(req, res, next){
 	Order.findOne({_id: req.params.id})
 	.populate('products.product')
@@ -30,28 +39,41 @@ router.get('/:id', function(req, res, next){
 	}, next);
 });
 
+
+
 router.post('/', function(req, res, next){
 
-  // console.log(req.session)
+	// Order.findOne({user: req.body.user, status: 'Cart'})
+	// .populate('products.product')
+	// .then(function(cart){
+	// 	if(!cart){
+	// 		//no cart exists for this user - create one
+	// 		var newCart = new Order({
+  //               user: req.body.user,
+  //               status: 'Cart'
+  //           });
+  //          	newCart.save()
+  //          	.then(function(response){
+  //          		res.send(response);
+  //          	});
+	// 	} else {
+	// 		//cart already existed, return cart
+	// 		res.send(cart);
+	// 	}
+	// });
 
-	Order.findOne({user: req.body.user, status: 'Cart'})
-	.populate('products.product')
-	.then(function(cart){
-		if(!cart){
-			//no cart exists for this user - create one
-			var newCart = new Order({
-                user: req.body.user,
-                status: 'Cart'
-            });
-           	newCart.save()
-           	.then(function(response){
-           		res.send(response);
-           	});
-		} else {
-			//cart already existed, return cart
-			res.send(cart);
-		}
-	});
+  // Order.findOrCreateAuth(req.body.user)
+  // .then(function(cart){
+  //   res.send(cart);
+  // });
+
+  // Order.findOne({_id: req.session.cartId})
+  // .then(function(cart){
+  //   res.send(cart);
+  // });
+  //console.log('first', req)
+  res.send();
+
 });
 
 router.put('/:id', function(req, res, next){
