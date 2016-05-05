@@ -17,11 +17,11 @@ app.config(function ($stateProvider) {
 app.controller('CartController', function($rootScope, $state, $scope, cart, OrderFactory, CartFactory, UserFactory, Session, ngToast){
 
   $scope.cart = cart;
-  //$scope.total = getTotal(cart.products);
+  $scope.total = getTotal(cart.products);
   //getAddresses(Session, UserFactory, $scope);
 
+
   $scope.increaseQty = function(product){
-    console.log('order', $scope.cart._id);
     return OrderFactory.addOne($scope.cart._id, product._id)
     .then(function(res){
       $scope.refreshCart();
@@ -62,7 +62,7 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
       ngToast.create('Order completed!');
 
       CartFactory.resetCart();
-      CartFactory.createCart(newCart._id);
+      CartFactory.createCart();
       $scope.refreshCart();
       $state.go('home');
     });

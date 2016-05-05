@@ -44,8 +44,8 @@ module.exports = function (app) {
     });
 
     app.use(function (req, res, next) {
-          //console.log('session', req.session)
-          if(!req.session.cartId) {
+          console.log('session USER', req.user)
+          //if(!req.session.cartId) {
 
             if(!req.user){
               //user is NOT logged in, find the cart
@@ -61,11 +61,11 @@ module.exports = function (app) {
               Order.findOrCreateAuth(req.user._id)
               .then(function(cart){
                 req.session.cartId = cart._id;
-                console.log('FIRST',req.session.cartId);
+                console.log('FIRST USER',req.session.cartId);
 
               });
             }
-        }
+      //  }
 
         next();
     });

@@ -33,13 +33,15 @@ var schema = new mongoose.Schema({
 });
 
 schema.statics.findOrCreateUnAuth = function(id){
+  var self = this;
+
   return this.findOne({sessionId: id, status: 'Cart'})
 	.populate('products.product')
 	.then(function(cart){
 		if(!cart){
 			//no cart exists for this user - create one
 
-      this.create({sessionId: id, status: 'Cart'})
+      self.create({sessionId: id, status: 'Cart'})
      	.then(function(response){
      		return response;
      	});
@@ -51,13 +53,15 @@ schema.statics.findOrCreateUnAuth = function(id){
 };
 
 schema.statics.findOrCreateAuth = function(id){
+
+  var self = this;
   return this.findOne({user: id, status: 'Cart'})
 	.populate('products.product')
 	.then(function(cart){
 		if(!cart){
 			//no cart exists for this user - create one
 
-      this.create({user: id, status: 'Cart'})
+      self.create({user: id, status: 'Cart'})
      	.then(function(response){
      		return response;
      	});

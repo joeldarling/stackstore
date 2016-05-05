@@ -31,7 +31,7 @@ app.factory('OrderFactory', function($http){
 		});
 	};
 	OrderFactory.createCart = function(user){
-		return $http.get('/api/orders/', {user: user})
+		return $http.post('/api/orders/', {user: user})
 		.then(function(response){
 			return response.data;
 		});
@@ -60,6 +60,7 @@ app.factory('OrderFactory', function($http){
 	};
 
 	OrderFactory.checkout = function(id, total){
+		console.log('checking out!', id)
 		return $http.put('/api/orders/checkout/' + id, {
 			// address: address,
 			// city: city,

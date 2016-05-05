@@ -23,6 +23,8 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/cart', function(req, res, next){
+
+
   Order.findOne({_id: req.session.cartId})
   .populate('products.product')
   .then(function(cart){
@@ -43,36 +45,17 @@ router.get('/:id', function(req, res, next){
 
 router.post('/', function(req, res, next){
 
-	// Order.findOne({user: req.body.user, status: 'Cart'})
-	// .populate('products.product')
-	// .then(function(cart){
-	// 	if(!cart){
-	// 		//no cart exists for this user - create one
-	// 		var newCart = new Order({
-  //               user: req.body.user,
-  //               status: 'Cart'
-  //           });
-  //          	newCart.save()
-  //          	.then(function(response){
-  //          		res.send(response);
-  //          	});
-	// 	} else {
-	// 		//cart already existed, return cart
-	// 		res.send(cart);
-	// 	}
-	// });
-
-  // Order.findOrCreateAuth(req.body.user)
-  // .then(function(cart){
-  //   res.send(cart);
-  // });
-
-  // Order.findOne({_id: req.session.cartId})
-  // .then(function(cart){
-  //   res.send(cart);
-  // });
-  //console.log('first', req)
-  res.send();
+	if(req.body.user){
+    Order.findOrCreateAuth(req.body.user)
+    .then(function(cart){
+      res.json(cart);
+    });
+  } else {
+    Order.findOrCreateUnAuth(req.cookies['connect.sid'])
+    .then(function(cart){
+      res.json(cart);
+    });
+  }
 
 });
 
@@ -123,6 +106,7 @@ router.put('/checkout/:id', function(req, res, next){
 	Order.findOne({_id: req.params.id})
 	.populate('user')
 	.then(function(order){
+
 		//loop through products in the order to update inventory
 		order.products.forEach(function(item){
 			Product.findOne({_id: item.product})
