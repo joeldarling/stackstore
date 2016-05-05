@@ -1,5 +1,5 @@
 ## Waffle Store
-#### by Ontima Chung, Jared Mayo, and Joel Darling
+#### by Ontima Chung and Joel Darling
 
 This is the repo for the Fullstack Stackstore project. This projected is based on the FSG generator.
 <br/>
