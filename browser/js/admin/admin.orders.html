@@ -9,6 +9,7 @@
 
 <div ng-repeat="order in orders | filter:statusFilter" class="well">
   <p> Order: {{ order.orderNumber }}</p>
+  <p> Customer: {{ order.user.email }}
   <p> Status: {{ order.status }}</p>
   <p> Total: {{ order.total }} </p>
   <p> Date: {{ order.orderDate }} </p>

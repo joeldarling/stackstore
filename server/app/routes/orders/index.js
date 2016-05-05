@@ -16,7 +16,8 @@ var smtpTransport = nodemailer.createTransport({
 });
 
 router.get('/', function(req, res, next){
-	Order.find({})
+	Order.find({status: {$ne: 'Cart'}})
+  .populate('user')
 	.then(function(orders){
 		res.json(orders);
 	}, next);
