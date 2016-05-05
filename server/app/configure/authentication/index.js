@@ -44,7 +44,6 @@ module.exports = function (app) {
     });
 
     app.use(function (req, res, next) {
-          console.log('session USER', req.user)
           //if(!req.session.cartId) {
 
             if(!req.user){
@@ -52,7 +51,7 @@ module.exports = function (app) {
               Order.findOrCreateUnAuth(req.cookies['connect.sid'])
               .then(function(cart){
                 req.session.cartId = cart._id;
-                console.log('FIRST',req.session.cartId);
+                console.log('NO LOG IN CART',req.session.cartId);
 
               });
             } else {

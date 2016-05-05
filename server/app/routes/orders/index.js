@@ -59,9 +59,9 @@ router.post('/', function(req, res, next){
 
 });
 
-router.put('/:id', function(req, res, next){
+router.put('/', function(req, res, next){
 
-	Order.findOne({_id: req.params.id})
+	Order.findOne({_id: req.session.cartId})
 	.then(function(order){
 		//get index of product in products array
 		var index = order.products.map(function(product) { return product.product.toString(); }).indexOf(req.body.productid);
