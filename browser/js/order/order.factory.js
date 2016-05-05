@@ -59,8 +59,8 @@ app.factory('OrderFactory', function($http){
 		});
 	};
 
-	OrderFactory.checkout = function(id, total){
-		return $http.put('/api/orders/checkout/' + id, {
+	OrderFactory.checkout = function(total){
+		return $http.put('/api/orders/checkout/', {
 			// address: address,
 			// city: city,
 			// state: state,
@@ -73,6 +73,7 @@ app.factory('OrderFactory', function($http){
 	};
 
 	OrderFactory.updateStatus = function(id, status){
+		console.log('update?')
 		return $http.put('/api/orders/status/' + id, {status: status})
 		.then(function(response){
 			return response.data;

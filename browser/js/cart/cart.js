@@ -54,9 +54,9 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
   };
 
   $scope.checkout = function(){
-    OrderFactory.checkout(cart._id, CartFactory.getTotal())
+    OrderFactory.checkout(CartFactory.getTotal())
     .then(function(result){
-        return OrderFactory.createCart(Session.user._id);
+        return OrderFactory.createCart();
     })
     .then(function(newCart){
       ngToast.create('Order completed!');

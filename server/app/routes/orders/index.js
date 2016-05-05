@@ -102,8 +102,9 @@ router.delete('/:id', function(req, res, next){
 });
 
 
-router.put('/checkout/:id', function(req, res, next){
-	Order.findOne({_id: req.params.id})
+router.put('/checkout/', function(req, res, next){
+  console.log('server CHECK',req.session.cartId)
+	Order.findOne({_id: req.session.cartId})
 	.populate('user')
 	.then(function(order){
 
@@ -159,6 +160,7 @@ router.put('/checkout/:id', function(req, res, next){
 		return order.save();
 	})
 	.then(function(response){
+    console.log('orderdone')
 		res.send(response);
 	}, next);
 });

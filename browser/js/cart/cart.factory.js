@@ -18,7 +18,7 @@ app.factory('CartFactory', function($rootScope, OrderFactory){
       return _cartId;
     },
     refreshCart: function (){
-    
+
       return OrderFactory.getCart()
       .then(function(res){
         _cart = res;
@@ -36,6 +36,7 @@ app.factory('CartFactory', function($rootScope, OrderFactory){
         return _cart.products.length;
     },
     getTotal: function(){
+      console.log('TOTAL',_cart)
      return _cart.products.reduce(function(prev, curr){
 
         prev += curr.product.price * curr.quantity;
