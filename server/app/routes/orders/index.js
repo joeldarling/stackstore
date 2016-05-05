@@ -64,9 +64,10 @@ router.put('/', function(req, res, next){
 
 	Order.findOne({_id: req.session.cartId})
 	.then(function(order){
+    console.log('ORDER TO UPDATE', order)
 		//get index of product in products array
 		var index = order.products.map(function(product) { return product.product.toString(); }).indexOf(req.body.productid);
-
+    console.log('INDEX', index)
 		if(req.body.action === 'delete' && index!==-1){
 			order.products.splice(index, 1);
 

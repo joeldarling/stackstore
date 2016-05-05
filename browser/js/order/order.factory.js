@@ -45,7 +45,7 @@ app.factory('OrderFactory', function($http){
 	};
 
 	OrderFactory.deleteItem = function(id, product){
-		return $http.put('/api/orders/' + id, {productid: product, action: "delete"})
+		return $http.put('/api/orders/', {productid: product, action: "delete"})
 		.then(function(response){
 			return response.data;
 		});
@@ -53,7 +53,7 @@ app.factory('OrderFactory', function($http){
 	};
 
 	OrderFactory.removeOne = function(id, product){
-		return $http.put('/api/orders/' + id, {productid: product, action: "remove"})
+		return $http.put('/api/orders/', {productid: product, action: "remove"})
 		.then(function(response){
 			return response.data;
 		});
@@ -61,7 +61,7 @@ app.factory('OrderFactory', function($http){
 
 	OrderFactory.checkout = function(total, orderInfo){
 		return $http.put('/api/orders/checkout/', {
-	
+
 			orderInfo: orderInfo,
 			total: total
 		})

@@ -78,6 +78,12 @@ module.exports = function (app) {
     // Simple /logout route.
     app.get('/logout', function (req, res) {
         req.logout();
+
+        Order.findOrCreateUnAuth(req.cookies['connect.sid'])
+        .then(function(cart){
+          req.session.cartId = cart._id;
+        });
+
         res.status(200).end();
     });
 
