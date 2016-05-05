@@ -27,7 +27,38 @@
             <h4> Order Total: ${{ total }} </h4>
         </div>
 
-        <button class="btn btn-primary" ng-click="checkout()"> Complete Purchase </button>
+        <div ng-show="loggedIn">
+            <p>Shipping Address: </p>
+            <select ng-model="selectedAddress">
+                <option ng-repeat="address in addresses" value="{{address.address}}">{{address.address}} {{address.city}} {{address.state}} {{address.zip}}</option>
+                <option value="" ng-if="false"></option>
+            </select>
+        </div>
+        <div ng-show="!loggedIn">
+          <form name="orderInfo">
+              <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">@</span>
+                  <input type="text" class="form-control" ng-model="formData.email" placeholder="Email Address">
+              </div>
+              <div class="input-group">
+                  <input type="text" class="form-control" ng-model="formData.address" placeholder="Address">
+              </div>
+              <div class="input-group">
+                  <input type="text" class="form-control" ng-model="formData.city" placeholder="City">
+              </div>
+              <div class="input-group">
+                  <input type="text" class="form-control" ng-model="formData.state" placeholder="State">
+              </div>
+              <div class="input-group">
+                  <input type="text" class="form-control" ng-model="formData.zip" placeholder="Zip">
+              </div>
+
+              <br/>
+          </form>
+        </div>
+
+        <br>
+        <button class="btn btn-primary" ng-disabled="cart.products.length<1" ng-click="checkout()"> Complete Purchase </button>
 
     </div>
 </div>

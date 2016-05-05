@@ -7,23 +7,23 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/cart/cart.html',
         resolve:{
           cart: function(Session, OrderFactory){
-              return OrderFactory.createCart(Session.user._id);
+              return OrderFactory.getCart();
           }
         }
     });
 
 });
 
-app.controller('CartController', function($rootScope, $state, $scope, cart, OrderFactory, CartFactory, Session, ngToast){
+app.controller('CartController', function($rootScope, $state, $scope, cart, OrderFactory, CartFactory, UserFactory, Session, ngToast){
 
   $scope.cart = cart;
   $scope.total = getTotal(cart.products);
+  $scope.loggedIn = Session.user;
+  $scope.formData = {};
 
-  console.log(ngToast);
-
+  getAddresses(Session, UserFactory, $scope);
 
   $scope.increaseQty = function(product){
-    console.log('order', $scope.cart._id);
     return OrderFactory.addOne($scope.cart._id, product._id)
     .then(function(res){
       $scope.refreshCart();
@@ -56,15 +56,14 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
   };
 
   $scope.checkout = function(){
-    OrderFactory.checkout(cart._id, CartFactory.getTotal())
+    OrderFactory.checkout(CartFactory.getTotal(), $scope.formData)
     .then(function(result){
-        return OrderFactory.createCart(Session.user._id);
+        return OrderFactory.createCart();
     })
     .then(function(newCart){
       ngToast.create('Order completed!');
 
-      CartFactory.resetCart();
-      CartFactory.createCart(newCart._id);
+      CartFactory.createCart();
       $scope.refreshCart();
       $state.go('home');
     });
@@ -72,6 +71,16 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
 
 });
 
+function getAddresses(Session, UserFactory, $scope){
+  if(Session.user){
+    UserFactory.fetchById(Session.user._id)
+    .then(function(result){
+      $scope.addresses = result.user.address;
+      $scope.selectedAddress = result.user.address[0].address;
+    });
+  }
+
+}
 
 function getTotal(products){
 

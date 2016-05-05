@@ -4,14 +4,17 @@ var express = require('express');
 var app = express();
 module.exports = app;
 
+
 // Pass our express application pipeline into the configuration
 // function located at server/app/configure/index.js
 require('./configure')(app);
 
+
 // Routes that will be accessed via AJAX should be prepended with
 // /api so they are isolated from our GET /* wildcard.
-app.use('/api', require('./routes'));
 
+
+app.use('/api', require('./routes'));
 
 /*
  This middleware will catch any URLs resembling a file extension
@@ -29,9 +32,12 @@ app.use(function (req, res, next) {
 
 });
 
+
 app.get('/*', function (req, res) {
     res.sendFile(app.get('indexHTMLPath'));
 });
+
+
 
 // Error catching endware.
 app.use(function (err, req, res, next) {

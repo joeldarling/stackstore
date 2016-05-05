@@ -6,7 +6,6 @@ var Product = mongoose.model('Product');
 var Review = mongoose.model('Review');
 
 router.get('/', function(req, res, next){
-	console.log('test');
 	Product.find({})
 	.populate('category')
 	.then(function(products){
@@ -17,6 +16,7 @@ router.get('/', function(req, res, next){
 
 
 router.post('/', function(req, res, next){
+
 	var newProduct = new Product({
 		name: req.body.name,
 		description: req.body.description,
