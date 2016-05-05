@@ -1,41 +1,41 @@
 <div class="col-sm-6">
 
-  <h3> Users </h3>
+    <h3> Users </h3>
 
-  <div ng-repeat="user in users" class="well">
-    <p> Email: {{ user.email }} </p>
-    <p> Admin Access: {{ user.status }} </p>
-    <button ng-click="deleteUser(user._id)" class="btn btn-danger">Delete</button>
-    <button ng-click="triggerReset(user._id)" class="btn btn-danger">Password Reset</button>
+    <div ng-repeat="user in users" class="well">
+        <p> Email: {{ user.email }} </p>
+        <p> Admin Access: {{ user.status }} </p>
+        <button ng-click="deleteUser(user._id)" class="btn btn-danger">Delete</button>
+        <button ng-click="triggerReset(user._id)" class="btn btn-danger">Password Reset</button>
 
-  </div>
+    </div>
 </div>
 <div class="col-sm-6">
-  <h3> Create New User </h3>
-   <form >
-     <div class="input-group">
-      <span class="input-group-addon" id="basic-addon1">@</span>
-      <input type="text" class="form-control" ng-model="formData.email" placeholder="Email Address">
-    </div>
-    <div class="input-group">
-     <input type="text" class="form-control" ng-model="formData.address" placeholder="Address">
-   </div>
-   <div class="input-group">
-    <input type="text" class="form-control" ng-model="formData.city" placeholder="City">
-  </div>
-  <div class="input-group">
-   <input type="text" class="form-control" ng-model="formData.state" placeholder="State">
- </div>
- <div class="input-group">
-  <input type="text" class="form-control" ng-model="formData.zip" placeholder="Zip">
-</div>
-    <div class="input-group">
-      <strong> Admin Access </strong>
-        <label class="radio-inline" ng-repeat="option in ['Yes','No']" for="{{option}}">
-            <input type="radio" ng-model="formData.admin" ng-value="option" name="option" class="radio-inline"> {{ option }}
-        </label>
-    </div>
-    <br/>
-    <button ng-click="createUser()" ng-disabled="!validateEmail(formData.email)" class="btn btn-primary">Create New User</button>
-   </form>
+    <h3> Create New User </h3>
+    <form>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">@</span>
+            <input type="text" class="form-control" ng-model="formData.email" placeholder="Email Address">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="formData.address" placeholder="Address">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="formData.city" placeholder="City">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="formData.state" placeholder="State">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="formData.zip" placeholder="Zip">
+        </div>
+        <div class="input-group">
+            <strong> Admin Access </strong>
+            <label class="radio-inline" ng-repeat="option in ['Yes','No']" for="{{option}}">
+                <input type="radio" ng-model="formData.admin" ng-value="option" name="option" class="radio-inline"> {{ option }}
+            </label>
+        </div>
+        <br/>
+        <button ng-click="createUser()" ng-disabled="!validateEmail(formData.email)" class="btn btn-primary">Create New User</button>
+    </form>
 </div>

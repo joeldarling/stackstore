@@ -24,7 +24,12 @@ app.factory('OrderFactory', function($http){
 	};
 
 
-
+	OrderFactory.getCart = function(){
+		return $http.get('/api/orders/cart')
+		.then(function(res){
+			return res.data;
+		});
+	};
 	OrderFactory.createCart = function(user){
 		return $http.post('/api/orders/', {user: user})
 		.then(function(response){
@@ -33,7 +38,7 @@ app.factory('OrderFactory', function($http){
 	};
 
 	OrderFactory.addOne = function(id, product, price){
-		return $http.put('/api/orders/' + id, {productid: product, price: price, action: "add"})
+		return $http.put('/api/orders/', {productid: product, price: price, action: "add"})
 		.then(function(response){
 			return response.data;
 		});
@@ -54,12 +59,10 @@ app.factory('OrderFactory', function($http){
 		});
 	};
 
-	OrderFactory.checkout = function(id, total){
-		return $http.put('/api/orders/checkout/' + id, {
-			// address: address,
-			// city: city,
-			// state: state,
-			// zip: zip,
+	OrderFactory.checkout = function(total, orderInfo){
+		return $http.put('/api/orders/checkout/', {
+	
+			orderInfo: orderInfo,
 			total: total
 		})
 		.then(function(response){

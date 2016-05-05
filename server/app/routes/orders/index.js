@@ -22,6 +22,17 @@ router.get('/', function(req, res, next){
 	}, next);
 });
 
+router.get('/cart', function(req, res, next){
+
+
+  Order.findOne({_id: req.session.cartId})
+  .populate('products.product')
+  .then(function(cart){
+    res.json(cart);
+  });
+
+});
+
 router.get('/:id', function(req, res, next){
 	Order.findOne({_id: req.params.id})
 	.populate('products.product')
@@ -30,31 +41,27 @@ router.get('/:id', function(req, res, next){
 	}, next);
 });
 
+
+
 router.post('/', function(req, res, next){
 
-	Order.findOne({user: req.body.user, status: 'Cart'})
-	.populate('products.product')
-	.then(function(cart){
-		if(!cart){
-			//no cart exists for this user - create one
-			var newCart = new Order({
-                user: req.body.user,
-                status: 'Cart'
-            });
-           	newCart.save()
-           	.then(function(response){
-           		res.send(response);
-           	});
-		} else {
-			//cart already existed, return cart
-			res.send(cart);
-		}
-	});
+	if(req.body.user){
+    Order.findOrCreateAuth(req.body.user)
+    .then(function(cart){
+      res.json(cart);
+    });
+  } else {
+    Order.findOrCreateUnAuth(req.cookies['connect.sid'])
+    .then(function(cart){
+      res.json(cart);
+    });
+  }
+
 });
 
-router.put('/:id', function(req, res, next){
+router.put('/', function(req, res, next){
 
-	Order.findOne({_id: req.params.id})
+	Order.findOne({_id: req.session.cartId})
 	.then(function(order){
 		//get index of product in products array
 		var index = order.products.map(function(product) { return product.product.toString(); }).indexOf(req.body.productid);
@@ -95,10 +102,11 @@ router.delete('/:id', function(req, res, next){
 });
 
 
-router.put('/checkout/:id', function(req, res, next){
-	Order.findOne({_id: req.params.id})
+router.put('/checkout/', function(req, res, next){
+	Order.findOne({_id: req.session.cartId})
 	.populate('user')
 	.then(function(order){
+
 		//loop through products in the order to update inventory
 		order.products.forEach(function(item){
 			Product.findOne({_id: item.product})
@@ -111,19 +119,21 @@ router.put('/checkout/:id', function(req, res, next){
 					//if there are some left - update the order's quantity to what's available?
 					//if nothing in the order is available, update status to 'Cancelled'?
 				}
-			})
+			});
 		});
 		//update the order's status
 		order.status = 'Created';
 		order.total = req.body.total;
+    if(req.body.orderInfo.email)
+      order.user.email = req.body.orderInfo.email;
 
 		//update the order's address
-		if (req.body.address) {
+		if (req.body.orderInfo) {
 			var newAddress = new Address({
-				address: req.body.address,
-				city: req.body.city,
-				state: req.body.state,
-				zip: req.body.zip
+				address: req.body.orderInfo.address,
+				city: req.body.orderInfo.city,
+				state: req.body.orderInfo.state,
+				zip: req.body.orderInfo.zip
 			});
 			newAddress.save()
 			.then(function(address){
@@ -151,6 +161,7 @@ router.put('/checkout/:id', function(req, res, next){
 		return order.save();
 	})
 	.then(function(response){
+    console.log('orderdone')
 		res.send(response);
 	}, next);
 });
