@@ -59,12 +59,10 @@ app.factory('OrderFactory', function($http){
 		});
 	};
 
-	OrderFactory.checkout = function(total){
+	OrderFactory.checkout = function(total, orderInfo){
 		return $http.put('/api/orders/checkout/', {
-			// address: address,
-			// city: city,
-			// state: state,
-			// zip: zip,
+	
+			orderInfo: orderInfo,
 			total: total
 		})
 		.then(function(response){

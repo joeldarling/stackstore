@@ -18,8 +18,10 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
 
   $scope.cart = cart;
   $scope.total = getTotal(cart.products);
-  //getAddresses(Session, UserFactory, $scope);
+  $scope.loggedIn = Session.user;
+  $scope.formData = {};
 
+  getAddresses(Session, UserFactory, $scope);
 
   $scope.increaseQty = function(product){
     return OrderFactory.addOne($scope.cart._id, product._id)
@@ -54,14 +56,13 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
   };
 
   $scope.checkout = function(){
-    OrderFactory.checkout(CartFactory.getTotal())
+    OrderFactory.checkout(CartFactory.getTotal(), $scope.formData)
     .then(function(result){
         return OrderFactory.createCart();
     })
     .then(function(newCart){
       ngToast.create('Order completed!');
 
-      CartFactory.resetCart();
       CartFactory.createCart();
       $scope.refreshCart();
       $state.go('home');
@@ -71,14 +72,15 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
 });
 
 function getAddresses(Session, UserFactory, $scope){
-  UserFactory.fetchById(Session.user._id)
-  .then(function(result){
-    $scope.addresses = result.user.address;
-    $scope.selectedAddress = result.user.address[0].address;
-  });
+  if(Session.user){
+    UserFactory.fetchById(Session.user._id)
+    .then(function(result){
+      $scope.addresses = result.user.address;
+      $scope.selectedAddress = result.user.address[0].address;
+    });
+  }
 
 }
-
 
 function getTotal(products){
 
