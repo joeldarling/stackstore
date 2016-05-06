@@ -51,17 +51,12 @@ module.exports = function (app) {
               Order.findOrCreateUnAuth(req.cookies['connect.sid'])
               .then(function(cart){
                 req.session.cartId = cart._id;
-                console.log('NO LOG IN CART',req.session.cartId);
-
               });
             } else {
               //user IS logged in, find the cart
-
               Order.findOrCreateAuth(req.user._id)
               .then(function(cart){
                 req.session.cartId = cart._id;
-                console.log('FIRST USER',req.session.cartId);
-
               });
             }
       //  }
@@ -83,6 +78,12 @@ module.exports = function (app) {
     // Simple /logout route.
     app.get('/logout', function (req, res) {
         req.logout();
+
+        Order.findOrCreateUnAuth(req.cookies['connect.sid'])
+        .then(function(cart){
+          req.session.cartId = cart._id;
+        });
+
         res.status(200).end();
     });
 

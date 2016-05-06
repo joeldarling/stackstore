@@ -32,6 +32,7 @@ var schema = new mongoose.Schema({
     }
 });
 
+
 schema.statics.findOrCreateUnAuth = function(id){
   var self = this;
 
@@ -40,7 +41,6 @@ schema.statics.findOrCreateUnAuth = function(id){
 	.then(function(cart){
 		if(!cart){
 			//no cart exists for this user - create one
-
       self.create({sessionId: id, status: 'Cart'})
      	.then(function(response){
      		return response;
@@ -60,7 +60,6 @@ schema.statics.findOrCreateAuth = function(id){
 	.then(function(cart){
 		if(!cart){
 			//no cart exists for this user - create one
-
       self.create({user: id, status: 'Cart'})
      	.then(function(response){
      		return response;
