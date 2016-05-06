@@ -61,8 +61,8 @@
                 ngToast.create('You need to update your password!');
               }
 
-              // CartFactory.createCart(cart._id);
-              // $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+              CartFactory.createCart();
+              $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
               return data.user;
 
             //});
