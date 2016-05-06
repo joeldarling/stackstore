@@ -28,7 +28,7 @@
 
             <div class="input-group">
                 <label class="radio-inline" ng-repeat="star in ['1','2','3','4','5']" for="{{star}}">
-                    <input type="radio" ng-model="formData.rating" ng-value="star" name="star" class="radio-inline"> {{ star }}
+                    <input type="radio" ng-model="formData.rating" ng-value="star" name="star" class="radio"> {{ star }}
                 </label>
 
                 <textarea ng-model="formData.description" class="form-control" rows="5" id="comment"></textarea>

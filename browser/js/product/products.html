@@ -11,8 +11,8 @@
     <p> There are no products in this category! </p>
   </div>
 
-  <div>
-    <label>Search: <input ng-model="searchText"></label>
+  <div class="form-group">
+    <label><input class="form-control" ng-model="searchText"></label>
   </div>
   <div ng-repeat="product in products | filter:searchText" >
 
