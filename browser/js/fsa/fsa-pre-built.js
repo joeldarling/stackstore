@@ -52,8 +52,8 @@
 
         function onSuccessfulLogin(response) {
             var data = response.data;
-            OrderFactory.createCart(data.user._id)
-            .then(function(cart){
+            //OrderFactory.createCart(data.user._id)
+            //.then(function(cart){
 
               Session.create(data.id, data.user);
 
@@ -61,11 +61,11 @@
                 ngToast.create('You need to update your password!');
               }
 
-              CartFactory.createCart(cart._id);
-              $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+              // CartFactory.createCart(cart._id);
+              // $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
               return data.user;
 
-            });
+            //});
 
         }
 
