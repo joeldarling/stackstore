@@ -5,7 +5,7 @@
         </div>
         <a ui-sref="home" class="navbar-brand" href="#">brunchstack.io</a>
 
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav" style="margin-top: 3px">
             <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
                 <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
             </li>
