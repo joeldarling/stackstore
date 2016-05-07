@@ -1,11 +1,13 @@
 <h3> Orders </h3>
-<a ng-click="statusFilter=''"> All </a>
-<a ng-click="statusFilter='Created'"> Created </a>
-<a ng-click="statusFilter='Processing'"> Processing </a>
-<a ng-click="statusFilter='Cancelled'"> Cancelled </a>
-<a ng-click="statusFilter='Completed'"> Completed </a>
+<ul class="nav nav-pills">
 
+<li ui-sref-active="active" ><a ng-click="statusFilter=''"> All </a></li>
+<li ui-sref-active="active" ><a ng-click="statusFilter='Created'"> Created </a></li>
+<li ui-sref-active="active" ><a ng-click="statusFilter='Processing'"> Processing </a></li>
+<li ui-sref-active="active" ><a ng-click="statusFilter='Cancelled'"> Cancelled </a></li>
+<li ui-sref-active="active" ><a ng-click="statusFilter='Completed'"> Completed </a></li>
 
+</ul>
 
 <div ng-repeat="order in orders | filter:statusFilter" class="well">
   <p> Order: {{ order.orderNumber }}</p>

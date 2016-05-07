@@ -33,8 +33,8 @@
             <p> Status: {{ order.status }} (Total ${{ order.total }} )</p>
             <h5>Order Summary</h5>
             <ul>
-              <li ng-repeat="product in order.products"> {{ product.product.name }} - Qty: {{ product.quantity }}
-
+              <li ng-repeat="product in order.products"> <a ui-sref="productDetail({productid: product.product._id})">{{ product.product.name }} - Qty: {{ product.quantity }}
+              </a>
               </li>
 
           </div>
