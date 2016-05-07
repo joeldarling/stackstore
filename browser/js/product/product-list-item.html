@@ -1,9 +1,7 @@
-<div class="col-sm-4 well">
-  <a ui-sref="productDetail({productid: product._id})">{{ product.name }} </a>
-  <p>Price: {{ product.price }} </p>
-  <p>Category: <span ng-repeat="cat in product.category">{{ cat.name }} </span></p>
-  <p>Description: {{ product.description }}</p>
-  <br/>
+<div class="col-sm-4" style="margin-bottom:30px">
+  <p><a ui-sref="productDetail({productid: product._id})">{{ product.name }} </a></p>
+  <IMG ng-src="{{ product.photoURL }}" ALT="image" class="img-rounded" width="300" height="250">
+  <p>Price: ${{ product.price }} </p>
   <button ng-hide="product.inventoryQty<1" ng-click="addToCart(product._id)" class="btn btn-primary"> Add to Cart </button>
-  <p ng-show="product.inventoryQty<1">Product Unavailable</p> 
+  <p ng-show="product.inventoryQty<1">Product Unavailable</p>
 <div>

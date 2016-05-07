@@ -19,6 +19,7 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
   $scope.cart = cart;
   $scope.total = getTotal(cart.products);
   $scope.loggedIn = Session.user;
+
   $scope.formData = {};
 
   getAddresses(Session, UserFactory, $scope);

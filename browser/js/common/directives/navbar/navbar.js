@@ -7,7 +7,6 @@ app.directive('navbar', function ($rootScope, AuthService, CartFactory, Session,
         link: function (scope) {
 
             scope.items = [
-                { label: 'Home', state: 'home' },
                 { label: 'Products', state: 'products' },
             ];
 

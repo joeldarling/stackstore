@@ -1,5 +1,7 @@
 app.factory('CategoryFactory', function($http){
 
+  var searchFilter;
+
   return {
     fetchAll: function(){
 
