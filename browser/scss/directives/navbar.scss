@@ -2,8 +2,7 @@ navbar {
 
   display: block;
   background: white;
-  border-bottom: 1px solid black;
-  box-shadow: 1px 1px 14px -3px black;
+  border-bottom: 1px solid #373737;
 
   .container {
     width: 91%;
@@ -26,11 +25,11 @@ navbar {
     cursor: pointer;
     transition: color 0.2s;
     &.active {
-      color: darken(#f31214, 10%);
+      color: darken(#373737, 10%);
     }
     &:hover {
       background: none;
-      color: #f31214;
+      color: #373737;
     }
     &:focus {
       background: none;
@@ -54,9 +53,14 @@ navbar {
       margin-right: 5px;
     }
     a {
-      color: #f30046;
+      color: #1abc9c;
       cursor: pointer;
+      margin-left: 10px;
     }
+    &.active {
+      color: darken(#373737, 10%);
+    }
+
   }
 
 }
