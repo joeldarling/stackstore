@@ -19,7 +19,7 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
   $scope.cart = cart;
   $scope.total = getTotal(cart.products);
   $scope.loggedIn = Session.user;
-  $scope.formData = {};
+  $rootScope.formData = {};
 
   getAddresses(Session, UserFactory, $scope);
 
@@ -45,7 +45,7 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
     });
   };
 
-  $scope.refreshCart = function (){
+  $rootScope.refreshCart = function (){
 
     CartFactory.refreshCart()
     .then(function(result){
@@ -55,21 +55,14 @@ app.controller('CartController', function($rootScope, $state, $scope, cart, Orde
 
   };
 
-  $scope.checkout = function(){
-    OrderFactory.checkout(CartFactory.getTotal(), $scope.formData)
-    .then(function(result){
-        return OrderFactory.createCart();
-    })
-    .then(function(newCart){
-      ngToast.create('Order completed!');
-
-      CartFactory.createCart();
-      $scope.refreshCart();
-      $state.go('home');
-    });
+  $scope.checkout = function() {
+    $state.go('checkout');
   };
 
+
 });
+
+
 
 function getAddresses(Session, UserFactory, $scope){
   if(Session.user){
