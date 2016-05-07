@@ -1,0 +1,8 @@
+  <ul class="nav nav-pills">
+    <label ng-show="search"><input class="form-control" ng-model="filterService.filter"></label>
+      <li><a ui-sref="products">All</a></li>
+      <li ng-repeat="category in categories">
+
+          <a ui-sref="category({categoryName: category._id})">{{ category.name }}</a>
+      </li>
+  </ul>

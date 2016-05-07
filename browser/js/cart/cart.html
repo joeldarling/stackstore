@@ -29,7 +29,7 @@
 
         <div ng-show="loggedIn">
             <p>Shipping Address: </p>
-            <select ng-model="selectedAddress">
+            <select ng-model="selectedAddress" class="form-control select select-primary">
                 <option ng-repeat="address in addresses" value="{{address.address}}">{{address.address}} {{address.city}} {{address.state}} {{address.zip}}</option>
                 <option value="" ng-if="false"></option>
             </select>
