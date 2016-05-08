@@ -44,6 +44,22 @@ app.controller('AdminUserController', function($scope, $state, UserFactory){
     return re.test(email);
   };
 
+  $scope.adminAccess = function(user, status){
+
+    if(status==='Yes'){
+      UserFactory.updateStatus(user, 'No')
+      .then(function(){
+        $state.reload();
+      });
+    } else {
+      UserFactory.updateStatus(user, 'Yes')
+      .then(function(){
+        $state.reload();
+      });
+    }
+
+  };
+
 });
 
 
