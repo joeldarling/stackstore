@@ -41,6 +41,16 @@ router.get('/:id', function(req, res, next){
 	.then(null, next);
 });
 
+router.put('/:id', function(req, res, next){
+
+	console.log(req.body.update);
+	Product.findOneAndUpdate({_id: req.params.id}, req.body.update)
+	.then(function(product){
+		res.json(product);
+	})
+	.then(null, next);
+});
+
 router.delete('/:id', function(req, res, next){
 	Product.findOneAndRemove({_id: req.params.id})
 	.then(function(response){

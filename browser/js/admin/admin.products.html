@@ -1,14 +1,30 @@
 <div class="col-sm-6">
   <h3> Products </h3>
-  
-  <div ng-repeat="product in products" class="well">
 
-    <p> Product: {{ product.name }} </p>
-    <p> Description: {{ product.description }} </p>
-    <p> Price: {{ product.price }} <span>Inventory: {{ product.inventoryQty }}</span></p>
-    <img width="20%" height="20%" ng-src="{{product.photoURL}}"></img>
-    <p> Categories: <span ng-repeat="category in product.category">{{ category.name }}</span></p>
-    <button ng-click="deleteProduct(product._id)" class="btn btn-danger">Delete</delete>
+  <div ng-repeat="product in products" class="well">
+    <form name="productInfo">
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Name</span>
+        <input type="text" class="form-control" value="{{ product.name }}" ng-model="product.name" required>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Description</span>
+        <input type="text" class="form-control" value="{{ product.description }}" ng-model="product.description" required>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Price</span>
+        <input type="text" class="form-control" value="{{ product.price }}" ng-model="product.price" required>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Inventory</span>
+        <input type="text" class="form-control" value="{{ product.inventoryQty }}" ng-model="product.inventoryQty" required>
+      </div>
+      <img width="20%" height="20%" ng-src="{{product.photoURL}}"></img>
+      <p> Categories: <span ng-repeat="category in product.category">{{ category.name }}</span></p>
+
+      <button ng-disabled="!productInfo.$dirty && productInfo.$valid" ng-click="updateProduct(product)" class="btn btn-primary">Update</delete>
+      <button ng-click="deleteProduct(product._id)" class="btn btn-danger">Delete</delete>
+    </form>
   </div>
 </div>
 
@@ -36,7 +52,7 @@
    </div>
    <button ng-click="createCategory()" ng-disabled="category.length < 3" class="btn btn-primary">Create </button>
    <br/>
-
+   <hr/>
    <a ng-click="showCategories=!showCategories">Show Categories</a>
    <div ng-show="showCategories">
      <ul>

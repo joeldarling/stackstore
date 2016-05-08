@@ -5,8 +5,13 @@
     <div ng-repeat="user in users" class="well">
         <p> Email: {{ user.email }} </p>
         <p> Admin Access: {{ user.status }} </p>
-        <button ng-click="deleteUser(user._id)" class="btn btn-danger">Delete</button>
+
+        <button ng-show="user.status=='No'" ng-click="adminAccess(user._id, user.status)" class="btn btn-inverse">Enable Admin</button>
+        <button ng-show="user.status=='Yes'" ng-click="adminAccess(user._id, user.status)" class="btn btn-warning">Disable Admin</button>
+
         <button ng-click="triggerReset(user._id)" class="btn btn-danger">Password Reset</button>
+        <button ng-click="deleteUser(user._id)" class="btn btn-danger">Delete</button>
+
 
     </div>
 </div>
@@ -30,7 +35,7 @@
             <input type="text" class="form-control" ng-model="formData.zip" placeholder="Zip">
         </div>
         <div class="input-group">
-            <strong> Admin Access </strong>
+            <strong> Admin Access: </strong>
             <label class="radio-inline" ng-repeat="option in ['Yes','No']" for="{{option}}">
                 <input type="radio" ng-model="formData.admin" ng-value="option" name="option" class="radio-inline"> {{ option }}
             </label>
