@@ -63,12 +63,14 @@ app.controller('AdminUserController', function($scope, $state, UserFactory){
 });
 
 
-app.controller('AdminProductController', function($scope, $state, CategoryFactory, ProductFactory, categories){
+app.controller('AdminProductController', function($scope, $state, CategoryFactory, ProductFactory, categories, ngToast){
 
   $scope.category = "";
   $scope.categories = categories;
   $scope.showCategories = true;
   $scope.newProduct = {category: $scope.categories[0]};
+
+  $scope.updateProduct = {};
 
 
   $scope.createCategory = function(){
@@ -95,6 +97,16 @@ app.controller('AdminProductController', function($scope, $state, CategoryFactor
     .then(function(){
       $state.reload();
     });
+  };
+
+  $scope.updateProduct = function(product){
+
+    ProductFactory.updateProduct(product)
+    .then(function(){
+      ngToast.create('Product updated!');
+      $state.reload();
+    });
+
   };
 
 

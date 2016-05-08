@@ -67,6 +67,13 @@ app.factory('ProductFactory', function($http){
 		});
 	};
 
+	ProductFactory.updateProduct = function(product){
+		return $http.put('/api/products/'+ product._id, {update: product})
+		.then(function(response){
+			return response.data;
+		});
+	};
+
 	return ProductFactory;
 
 });

@@ -14,6 +14,7 @@
   <p> Status: {{ order.status }}</p>
   <p> Total: {{ order.total }} </p>
   <p> Date: {{ order.orderDate }} </p>
+  
   <button ng-click="updateStatus(order._id, 'Completed')" ng-disabled="order.status == 'Completed'" class="btn btn-success"> Complete </button>
   <button ng-click="updateStatus(order._id, 'Cancelled')" class="btn btn-danger"> Cancel Order </button>
 
