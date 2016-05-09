@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 var Order = mongoose.model('Order');
 var Product = mongoose.model('Product');
 var Address = mongoose.model('Address');
+var User = mongoose.model('User');
+
 var nodemailer = require('nodemailer');
 
 var smtpTransport = nodemailer.createTransport({
@@ -16,7 +18,8 @@ var smtpTransport = nodemailer.createTransport({
 });
 
 router.get('/', function(req, res, next){
-	Order.find({})
+  Order.find({status: {$ne: 'Cart'}})
+  .populate('user')
 	.then(function(orders){
 		res.json(orders);
 	}, next);
@@ -125,11 +128,13 @@ router.put('/checkout/', function(req, res, next){
 		order.status = 'Created';
 		order.total = req.body.total;
 
-    if(!order.user)
-      order.user = {};
-
-    if(req.body.orderInfo.email)
+    if(req.body.orderInfo.email && order.user)
       order.user.email = req.body.orderInfo.email;
+
+    if(req.user)
+      order.email = req.user.email;
+    else
+      order.email =  req.body.orderInfo.email;
 
 		//update the order's address
 		if (req.body.orderInfo) {

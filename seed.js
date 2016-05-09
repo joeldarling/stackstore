@@ -188,7 +188,9 @@ var seedOrders = function(){
                     products: [{
                         product: product._id,
                         quantity: 5
-                    }]
+                    }],
+                    email: 'obama@gmail.com',
+                    total: 100
                 },
                 {
                     user: user._id,
@@ -196,7 +198,9 @@ var seedOrders = function(){
                     products: [{
                         product: product._id,
                         quantity: 5
-                    }]
+                    }],
+                    email: 'obama@gmail.com',
+                    total: 100
                 }
             ]
             return Order.create(orders);
