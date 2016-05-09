@@ -18,8 +18,10 @@ app.controller('CheckoutController', function($rootScope, $state, $scope, cart, 
   $scope.cart = cart;
   $scope.total = CartFactory.getTotal();
 
+  console.log('checkout', $rootScope.formData)
+
     $scope.handleStripe = function(status, response){
- 
+
         if(response.error) {
           console.log("response error", response.error);
             $scope.paymentError= true;
