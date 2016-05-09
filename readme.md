@@ -30,6 +30,4 @@ To view the app, point your browser to:
 
 This app is also deployed to Heroku:
 
-To view the app, point your browser to:
-
 [http://ojjstackstore.heroku.com](ojjstackstore.heroku.com)
