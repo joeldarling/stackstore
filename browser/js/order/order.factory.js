@@ -38,7 +38,9 @@ app.factory('OrderFactory', function($http){
 	};
 
 	OrderFactory.addOne = function(id, product, price){
-		return $http.put('/api/orders/', {productid: product, price: price, action: "add"})
+		return $http.put('/api/orders/', 
+        {productid: product, price: price, action: "add"}
+     )
 		.then(function(response){
 			return response.data;
 		});
@@ -60,8 +62,8 @@ app.factory('OrderFactory', function($http){
 	};
 
 	OrderFactory.checkout = function(total, orderInfo){
+    //when checking out, why pass the orderInfo-- do we have it on server? just curious
 		return $http.put('/api/orders/checkout/', {
-
 			orderInfo: orderInfo,
 			total: total
 		})

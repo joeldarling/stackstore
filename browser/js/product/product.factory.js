@@ -1,4 +1,5 @@
 app.factory('ProductFactory', function($http){
+  //beautiful
 
 	var ProductFactory = {};
 
@@ -27,6 +28,7 @@ app.factory('ProductFactory', function($http){
 
 	ProductFactory.fetchReviewsByProduct = function(id){
 
+    //shouldn't this be /api/products/:productId/reviews?
 		return $http.get('/api/products/reviews/' + id)
 		.then(function(response){
 			var total = 0;
@@ -40,7 +42,8 @@ app.factory('ProductFactory', function($http){
 	};
 
 	ProductFactory.addReview = function(id, user, rating, desc){
-		return $http.post('/api/products/' + id + '/reviews', {user: user, rating: rating, description: desc})
+		return $http.post('/api/products/' + id + '/reviews', 
+        {user: user, rating: rating, description: desc})
 		.then(function(response){
 			return response.data;
 		});

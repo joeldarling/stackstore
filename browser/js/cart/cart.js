@@ -14,6 +14,7 @@ app.config(function ($stateProvider) {
 
 });
 
+//too many dependencies... IMHO
 app.controller('CartController', function($rootScope, $state, $scope, cart, OrderFactory, CartFactory, UserFactory, Session, ngToast){
 
   $scope.cart = cart;

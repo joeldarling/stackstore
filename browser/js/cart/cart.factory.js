@@ -1,5 +1,6 @@
 app.factory('CartFactory', function($rootScope, OrderFactory){
 
+  //i'll give you another idea... what if you're always returning the same object for the _cart.... you can copy any updates into that object-- all ui changes will be looking at the same cart and you don't have to do any broadcasting..
   var _cart, _cartId;
 
   return {
@@ -18,7 +19,7 @@ app.factory('CartFactory', function($rootScope, OrderFactory){
       return _cartId;
     },
     refreshCart: function (){
-
+      //would seem to me that CartFactory should be responsible for cart, instead of OrderFactory
       return OrderFactory.getCart()
       .then(function(res){
         _cart = res;

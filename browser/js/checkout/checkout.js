@@ -7,7 +7,7 @@ app.config(function ($stateProvider) {
       controller: 'CheckoutController',
       resolve: {
         cart: function(OrderFactory){
-            return OrderFactory.getCart();
+            return OrderFactory.getCart();//good
         }
       }
     });
@@ -18,7 +18,7 @@ app.controller('CheckoutController', function($rootScope, $state, $scope, cart, 
   $scope.cart = cart;
   $scope.total = CartFactory.getTotal();
 
-  console.log('checkout', $rootScope.formData)
+  console.log('checkout', $rootScope.formData);//why do you need rootScope
 
     $scope.handleStripe = function(status, response){
 
@@ -46,10 +46,9 @@ app.controller('CheckoutController', function($rootScope, $state, $scope, cart, 
       ngToast.create('Order completed!');
 
       CartFactory.createCart();
-      $rootScope.refreshCart();
+      $rootScope.refreshCart();//any way to avoid rootScope?
       $state.go('home');
     });
   };
-
 
 });

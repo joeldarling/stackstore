@@ -1,3 +1,4 @@
+//you could register all the states by chaining..
 app.config(function ($stateProvider) {
 
     $stateProvider.state('products', {
@@ -75,6 +76,7 @@ app.controller('ProductController', function($scope, categories, products, filte
   $scope.filterService = filterService;
 });
 
+//alot of dependencies here -- usually this indicates you can agreggate some of this into another factory or service.
 app.controller('ProductDetailController', function($scope, $state, Session, ProductFactory, CartFactory, OrderFactory, ngToast, reviews, product, categories){
 
   $scope.product = product;
@@ -88,12 +90,9 @@ app.controller('ProductDetailController', function($scope, $state, Session, Prod
   $scope.submitReview = function(){
     ProductFactory.addReview(product._id, Session.user._id, +$scope.formData.rating, $scope.formData.description)
     .then(function(res){
-
       $state.reload();
       $scope.formData = {rating: 3, description: ""};
-
     });
-
   };
 
   $scope.addToCart = function(product){
@@ -101,7 +100,6 @@ app.controller('ProductDetailController', function($scope, $state, Session, Prod
     .then(function(result){
       CartFactory.refreshCart();
       ngToast.create('Added to cart!');
-
     });
   };
 
