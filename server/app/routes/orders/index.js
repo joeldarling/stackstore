@@ -124,6 +124,10 @@ router.put('/checkout/', function(req, res, next){
 		//update the order's status
 		order.status = 'Created';
 		order.total = req.body.total;
+
+    if(!order.user)
+      order.user = {};
+
     if(req.body.orderInfo.email)
       order.user.email = req.body.orderInfo.email;
 
