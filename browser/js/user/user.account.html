@@ -31,10 +31,10 @@
           <div class="list-group list-group-item" ng-repeat="order in orders" ng-cloak>
             <h4>Order {{ order.orderNumber }}</h4>
             <p> Status: {{ order.status }} (Total ${{ order.total }} )</p>
-            <h5>Order Summary</h5>
+            <p>Order Summary</p>
             <ul>
-              <li ng-repeat="product in order.products"> {{ product.product.name }} - Qty: {{ product.quantity }}
-
+              <li ng-repeat="product in order.products"> <a ui-sref="productDetail({productid: product.product._id})">{{ product.product.name }} - Qty: {{ product.quantity }}
+              </a>
               </li>
 
           </div>

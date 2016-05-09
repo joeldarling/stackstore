@@ -68,10 +68,11 @@ app.config(function ($stateProvider) {
 
 
 
-app.controller('ProductController', function($scope, categories, products){
+app.controller('ProductController', function($scope, categories, products, filterService){
 
   $scope.products = products;
   $scope.categories = categories;
+  $scope.filterService = filterService;
 });
 
 app.controller('ProductDetailController', function($scope, $state, Session, ProductFactory, CartFactory, OrderFactory, ngToast, reviews, product, categories){

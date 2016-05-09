@@ -44,15 +44,33 @@ app.controller('AdminUserController', function($scope, $state, UserFactory){
     return re.test(email);
   };
 
+  $scope.adminAccess = function(user, status){
+
+    if(status==='Yes'){
+      UserFactory.updateStatus(user, 'No')
+      .then(function(){
+        $state.reload();
+      });
+    } else {
+      UserFactory.updateStatus(user, 'Yes')
+      .then(function(){
+        $state.reload();
+      });
+    }
+
+  };
+
 });
 
 
-app.controller('AdminProductController', function($scope, $state, CategoryFactory, ProductFactory, categories){
+app.controller('AdminProductController', function($scope, $state, CategoryFactory, ProductFactory, categories, ngToast){
 
   $scope.category = "";
   $scope.categories = categories;
   $scope.showCategories = true;
   $scope.newProduct = {category: $scope.categories[0]};
+
+  $scope.updateProduct = {};
 
 
   $scope.createCategory = function(){
@@ -79,6 +97,16 @@ app.controller('AdminProductController', function($scope, $state, CategoryFactor
     .then(function(){
       $state.reload();
     });
+  };
+
+  $scope.updateProduct = function(product){
+
+    ProductFactory.updateProduct(product)
+    .then(function(){
+      ngToast.create('Product updated!');
+      $state.reload();
+    });
+
   };
 
 

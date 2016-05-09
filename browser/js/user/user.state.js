@@ -16,3 +16,17 @@ app.config(function ($stateProvider) {
     });
 
 });
+
+app.config(function ($stateProvider) {
+
+    // Register our *signup* state.
+    $stateProvider.state('signup', {
+        url: '/signup',
+        controller: 'UserSignupController',
+        templateUrl: 'js/user/user.signup.html',
+        resolve:{
+          
+        }
+    });
+
+});

@@ -4,7 +4,7 @@
     <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="list-group list-group-item" ng-repeat="item in cart.products" ng-cloak>
-                <h4>{{ item.product.name }}</h4>
+                <p><a ui-sref="productDetail({productid: item.product._id})"> {{ item.product.name }}</a> </p>
                 <p>Qty: {{ item.quantity }} (${{item.product.price }} / each)
                     <button ng-click="increaseQty(item.product)" type="button" class="btn btn-default">
                         <span class="glyphicon glyphicon-chevron-up"></span>
@@ -29,7 +29,7 @@
 
         <div ng-show="loggedIn">
             <p>Shipping Address: </p>
-            <select ng-model="selectedAddress">
+            <select ng-model="selectedAddress" class="form-control select select-primary">
                 <option ng-repeat="address in addresses" value="{{address.address}}">{{address.address}} {{address.city}} {{address.state}} {{address.zip}}</option>
                 <option value="" ng-if="false"></option>
             </select>
@@ -59,6 +59,7 @@
 
         <br>
         <button class="btn btn-primary" ng-disabled="cart.products.length<1" ng-click="checkout()"> Proceed to Payment </button>
+
 
     </div>
 </div>
