@@ -31,18 +31,13 @@ describe('Product model', function () {
 
     var product;
 
-    // beforeEach(function(done){
-    //     console.log("inside beforeEach: ", Product);
-    //     return Product.create({name: 'Test Product', description:'Description'})
-    //     .then(function(_product_){
-    //       product = _product_;
-    //       console.log("product: ", product);
-    //       done();
-    //     });
-    // });
-
     beforeEach(function(done){
-        return Product.create({name: 'Test Product', price: 10, description:'Description'})
+        return Product.create({
+  				name: 'Test Product',
+  				price: 5,
+  				description:'Description',
+  				inventoryQty: 100
+  			})
         .then(function(_product_){
           product = _product_;
            done();
@@ -50,17 +45,6 @@ describe('Product model', function () {
 
     });
 
-
-    // beforeEach(function() {
-    //   return Product.create({
-    //     name: 'Test Product',
-    //     description:'Description'
-    //   })
-    //   .then(function(_product_){
-    //     product = _product_; 
-    //     console.log("product: ", product);
-    //   })
-    // });
 
     it('has a name', function(){
       expect(product.name).to.equal('Test Product');
@@ -70,6 +54,9 @@ describe('Product model', function () {
       expect(product.description).to.equal('Description');
     });
 
+    it('has a price', function(){
+      expect(product.price).to.equal(5);
+    });
   });
 
 
