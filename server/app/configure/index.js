@@ -29,5 +29,7 @@ module.exports = function (app) {
     app.use('/api/orders', require('../routes/orders'));
     app.use('/api/users', require('../routes/users'));
     app.use('/api/categories', require('../routes/categories'));
+    app.use('/github', require('../routes/github'));
+
 
 };
