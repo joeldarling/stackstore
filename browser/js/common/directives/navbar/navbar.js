@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, AuthService, Session, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, AuthService, CartFactory, Session, AUTH_EVENTS, $state) {
 
     return {
         restrict: 'E',
@@ -19,6 +19,7 @@ app.directive('navbar', function ($rootScope, AuthService, Session, AUTH_EVENTS,
             scope.logout = function () {
                 AuthService.logout().then(function () {
                    $state.go('home');
+                   CartFactory.refreshCart();
                 });
             };
 

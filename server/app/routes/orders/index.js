@@ -18,7 +18,7 @@ var smtpTransport = nodemailer.createTransport({
 });
 
 router.get('/', function(req, res, next){
-  Order.find({status: {$ne: 'Cart'}})
+	Order.find({status: {$ne: 'Cart'}})
   .populate('user')
 	.then(function(orders){
 		res.json(orders);
@@ -170,7 +170,19 @@ router.put('/checkout/', function(req, res, next){
 		return order.save();
 	})
 	.then(function(response){
-    console.log('orderdone')
+    if(!req.user){
+      //user is NOT logged in, find the cart
+      Order.findOrCreateUnAuth(req.cookies['connect.sid'])
+      .then(function(cart){
+        req.session.cartId = cart._id;
+      });
+    } else {
+      //user IS logged in, find the cart
+      Order.findOrCreateAuth(req.user._id)
+      .then(function(cart){
+        req.session.cartId = cart._id;
+      });
+    }
 		res.send(response);
 	}, next);
 });
