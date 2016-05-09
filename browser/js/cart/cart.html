@@ -1,0 +1,65 @@
+<div class="container">
+
+    <h4> Cart </h4>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="list-group list-group-item" ng-repeat="item in cart.products" ng-cloak>
+                <p><a ui-sref="productDetail({productid: item.product._id})"> {{ item.product.name }}</a> </p>
+                <p>Qty: {{ item.quantity }} (${{item.product.price }} / each)
+                    <button ng-click="increaseQty(item.product)" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                    </button>
+                    <button ng-show="item.quantity > 1" ng-click="decreaseQty(item.product)" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </button>
+                </p>
+
+
+                </h5>
+
+                <a href="" ng-click="deleteItem(item.product)"></span> Remove from Cart </a>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="well">
+            <h4> Order Total: ${{ total }} </h4>
+        </div>
+
+        <div ng-show="loggedIn">
+            <p>Shipping Address: </p>
+            <select ng-model="selectedAddress" class="form-control select select-primary">
+                <option ng-repeat="address in addresses" value="{{address.address}}">{{address.address}} {{address.city}} {{address.state}} {{address.zip}}</option>
+                <option value="" ng-if="false"></option>
+            </select>
+        </div>
+        <div ng-show="!loggedIn">
+          <form name="orderInfo">
+              <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">@</span>
+                  <input type="text" class="form-control" ng-model="formData.email" placeholder="Email Address">
+              </div>
+              <div class="input-group">
+                  <input type="text" class="form-control" ng-model="formData.address" placeholder="Address">
+              </div>
+              <div class="input-group">
+                  <input type="text" class="form-control" ng-model="formData.city" placeholder="City">
+              </div>
+              <div class="input-group">
+                  <input type="text" class="form-control" ng-model="formData.state" placeholder="State">
+              </div>
+              <div class="input-group">
+                  <input type="text" class="form-control" ng-model="formData.zip" placeholder="Zip">
+              </div>
+
+              <br/>
+          </form>
+        </div>
+
+        <br>
+        <button class="btn btn-primary" ng-disabled="cart.products.length<1" ng-click="checkout()"> Proceed to Payment </button>
+
+
+    </div>
+</div>

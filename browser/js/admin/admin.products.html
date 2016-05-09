@@ -1,0 +1,62 @@
+<div class="col-sm-6">
+  <h3> Products </h3>
+
+  <div ng-repeat="product in products" class="well">
+    <form name="productInfo">
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Name</span>
+        <input type="text" class="form-control" value="{{ product.name }}" ng-model="product.name" required>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Description</span>
+        <input type="text" class="form-control" value="{{ product.description }}" ng-model="product.description" required>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Price</span>
+        <input type="text" class="form-control" value="{{ product.price }}" ng-model="product.price" required>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Inventory</span>
+        <input type="text" class="form-control" value="{{ product.inventoryQty }}" ng-model="product.inventoryQty" required>
+      </div>
+      <img width="20%" height="20%" ng-src="{{product.photoURL}}"></img>
+      <p> Categories: <span ng-repeat="category in product.category">{{ category.name }}</span></p>
+
+      <button ng-disabled="!productInfo.$dirty && productInfo.$valid" ng-click="updateProduct(product)" class="btn btn-primary">Update</delete>
+      <button ng-click="deleteProduct(product._id)" class="btn btn-danger">Delete</delete>
+    </form>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <h3> Add New Product </h3>
+  <form name="newProductForm">
+    <div class="input-group">
+      <div class="input-group">
+         <input type="text" class="form-control" placeholder="Product Name" ng-model="newProduct.name" required>
+         <textarea ng-model="newProduct.description" placeholder="Description" class="form-control" rows="5" required></textarea>
+         <input type="number" class="form-control" placeholder="Price" ng-model="newProduct.price" required>
+         <input type="text" class="form-control" placeholder="Photo URL" ng-model="newProduct.photo" >
+         <input type="number" class="form-control" placeholder="Inventory Qty" ng-model="newProduct.inventory" required>
+         <select class="form-control"  ng-options="catg as catg.name for catg in categories track by catg._id" ng-model="newProduct.category"></select>
+         <button ng-disabled="newProductForm.$invalid" class="btn btn-primary" ng-click="createProduct()">Create</form>
+       </div>
+    </div>
+  </form>
+
+
+  <h3> Add New Category </h3>
+    <div class="input-group">
+     <span class="input-group-addon" id="basic-addon1">Category Name</span>
+     <input type="text" class="form-control" ng-model="category">
+   </div>
+   <button ng-click="createCategory()" ng-disabled="category.length < 3" class="btn btn-primary">Create </button>
+   <br/>
+   <hr/>
+   <a ng-click="showCategories=!showCategories">Show Categories</a>
+   <div ng-show="showCategories">
+     <ul>
+       <li ng-repeat="category in categories"> {{ category.name }} </li>
+     </ul>
+   </div>
+</div>

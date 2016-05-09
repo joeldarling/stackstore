@@ -1,0 +1,5 @@
+<div class="well">
+  <strong> Review by {{ review.user.email }} </strong>
+  <p> Rating: <span ng-repeat="i in getNumber(review.rating) track by $index" class="glyphicon glyphicon-star"></span></p>
+  <p> {{ review.description }}
+</div>

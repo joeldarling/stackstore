@@ -14,10 +14,20 @@ module.exports = function (app) {
     require('./static-middleware')(app);
     require('./parsing-middleware')(app);
 
+
+
+
+
+
     // Logging middleware, set as application
     // variable inside of server/app/configure/app-variables.js
     app.use(app.getValue('log'));
 
     require('./authentication')(app);
+
+    app.use('/api/products', require('../routes/products'));
+    app.use('/api/orders', require('../routes/orders'));
+    app.use('/api/users', require('../routes/users'));
+    app.use('/api/categories', require('../routes/categories'));
 
 };

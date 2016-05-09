@@ -1,0 +1,19 @@
+<div class="container">
+
+
+<div class="row">
+
+  <category-chooser categories="categories" search="true"></category-chooser>
+
+</div>
+
+
+  <div ng-show="products.length===0" class="well">
+    <p> There are no products in this category! </p>
+  </div>
+
+  <div ng-repeat="product in products | filter:filterService.filter.toString()" >
+    <product product="product"></product>
+
+  </div>
+</div>

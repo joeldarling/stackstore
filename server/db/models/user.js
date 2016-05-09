@@ -24,6 +24,19 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
+    },
+    address: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'Address'
+    }],
+    status: {
+        type: String
+    },
+    passwordReset: {
+        type: Boolean
+    },
+    isAdmin:{
+      type: Boolean,
+      default: true
     }
 });
 
