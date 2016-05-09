@@ -26,3 +26,9 @@ npm start
 To view the app, point your browser to:
 
 [http://localhost:1337](http://localhost:1337)
+
+This app is also deployed to Heroku:
+
+To view the app, point your browser to:
+
+[http://ojjstackstore.heroku.com](ojjstackstore.heroku.com)
