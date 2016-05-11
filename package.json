@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon --watch server -e js,html server/start.js",
     "postinstall": "gulp build",
-    "test": "nodemon ./node_modules/.bin/_mocha tests/server/**/*.js"
+    "test:backend": "nodemon ./node_modules/.bin/_mocha tests/server/**/*.js",
+    "test:frontend": "./node_modules/.bin/karma start tests/browser/karma.conf.js tests/browser/**/*.js"
   },
   "engines": {
     "node": ">=4.0.0"
@@ -73,6 +74,8 @@
     "supertest": "^0.15.0"
   },
   "devDependencies": {
+    "karma-ng-html2js-preprocessor": "^1.0.0",
+    "phantomjs-polyfill": "0.0.2",
     "supertest-as-promised": "^3.1.0"
   }
 }

@@ -26,11 +26,19 @@ describe('Product Route', function () {
     var product;
 
     beforeEach(function (done) {
-  		Product.create({name: 'Product', price: 5})
+  		return Product.create({
+				name: 'Product',
+				price: 5,
+				description:'description',
+				inventoryQty: 100
+			})
       .then(function(_product_){
         product = _product_;
         done();
-      });
+      })
+			.catch(function(err){
+				console.log('ERRR',err);
+			});
   	});
 
     it('can retrieve full list of products', function(){
